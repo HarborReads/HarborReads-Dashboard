@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,3 +69,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+=======
+# HarborReads-Dashboard
+A central hub for the web app's UI, management tools, and data visualization. Codebase for the user dashboard, featuring personal libraries, reading insights, and challenges. Front-end for users to interact, manage book collections, and access reading functionalities
+>>>>>>> origin/FrontEnd
