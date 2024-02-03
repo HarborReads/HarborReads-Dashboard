@@ -1,0 +1,71 @@
+
+.OpenScreen{
+    background-color: black;
+    height: 500px;
+    left: 600px;
+    position: absolute;
+    top: 100px;
+    width: 400px;
+    border-radius: 20px;
+    border: 2px solid white;
+}
+
+.OpenScreenLogo{
+    width: 320px;
+    height: 70px;
+    position: absolute;
+    left: 45px;
+    top: 90px;
+}
+
+.Discover{
+    color: white;
+    position: absolute;
+    top: 140px;
+    left: 60px;
+}
+.Discover2{
+    color: white;
+    position: absolute;
+    top: 190px;
+    left: 90px;
+}
+
+.subbmitOpenScreen{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 130px;
+    height: 40px;
+    color: white;
+    background: linear-gradient(180deg, #76ce84 -27.05%, rgba(93, 26, 26, 0.3385416567) 1095.79%, rgba(119, 221, 119, 0) 1095.9%);
+    border-radius: 50px;
+    font-size: 17px;
+    font-family: Inter, 'Source Sans Pro';
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.SignButtonOpenScreen{
+    position: absolute;
+    left: 130px;
+    top: 300px;
+}
+
+.NewToHarborReads{
+    position: absolute;
+    left: 90px;
+    top: 330px;
+    font-family: DM Sans, 'Source Sans Pro';
+    font-size:20px;
+}
+
+
+.signupOpenScreen{
+    position: absolute;
+    left: 140px;
+    top: 360px;
+    font-family: DM Sans, 'Source Sans Pro';
+    font-size:20px;
+    text-decoration-line: underline;
+}
