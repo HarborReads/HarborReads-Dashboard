@@ -9,6 +9,13 @@ require('./db');
 
 const app = express();
 
+// Session middleware configuration
+app.use(session({
+  secret: secretKey,
+  resave: false,
+  saveUninitialized: false
+}));
+
 // Middleware
 app.use(bodyParser.json());
 
@@ -21,21 +28,14 @@ app.use('/protected', authenticateUser, require('./src/routes/protected/protecte
 // Mounting bookRouter at /books/search path
 app.use('/books/search', bookRouter);
 
-// Session middleware configuration
-app.use(session({
-  secret: secretKey,
-  resave: false,
-  saveUninitialized: false
-}));
-
-// Protected route
-app.get('/protected', authenticateUser, (req, res) => {
-  if (req.session.user) {
-    res.json({ message: 'This is a protected route', user: req.session.user });
-  } else {
-    res.status(401).json({ message: 'Unauthorized' });
-  }
-});
+// // Protected route
+// app.get('/protected', authenticateUser, (req, res) => {
+//   if (req.session.user) {
+//     res.json({ message: 'This is a protected route', user: req.session.user });
+//   } else {
+//     res.status(401).json({ message: 'Unauthorized' });
+//   }
+// });
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -44,7 +44,7 @@ app.use((err, req, res, next) => {
 });
 
 // Start the server
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
