@@ -9,13 +9,15 @@ import SignUp from './component/SignUp';
 
 
  import React from 'react'
+import RightBar from './component/RightBar/RightBar';
  
  function App() {
    return (
     <div className="App bg-indigo-600 w-full h-screen overflow-hidden">
       
     <LeftBar/>
-    <SignIn/>
+    
+    <RightBar/>
     
     </div>
    )
