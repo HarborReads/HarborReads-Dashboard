@@ -1,10 +1,10 @@
-//app.js
 const express = require('express');
 const bodyParser = require('body-parser');
-const session = require('express-session'); // Import express-session module
+const session = require('express-session');
 const { authenticateUser, secretKey } = require('./src/middleware/authMiddleware');
 const authRoutes = require('./src/routes/auth');
 const bookRouter = require('./src/routes/books/bookRoutes');
+const profileRouter = require('./src/routes/profileRoutes');
 require('./db');
 
 const app = express();
@@ -28,14 +28,8 @@ app.use('/protected', authenticateUser, require('./src/routes/protected/protecte
 // Mounting bookRouter at /books/search path
 app.use('/books/search', bookRouter);
 
-// // Protected route
-// app.get('/protected', authenticateUser, (req, res) => {
-//   if (req.session.user) {
-//     res.json({ message: 'This is a protected route', user: req.session.user });
-//   } else {
-//     res.status(401).json({ message: 'Unauthorized' });
-//   }
-// });
+// Mounting profileRouter at /profile
+app.use('/profile', authenticateUser, profileRouter);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
