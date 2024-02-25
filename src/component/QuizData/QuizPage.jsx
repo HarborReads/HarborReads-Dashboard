@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Questions from './QuestionsData'; // Assuming Questions.js contains your array of questions
 
-const Quiz = () => {
+function Quiz(){
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState('');
   const [score, setScore] = useState(0);
@@ -29,6 +29,8 @@ const Quiz = () => {
   const shuffledOptions = Questions[currentQuestion].options.sort(() => Math.random() - 0.5);
 
   return (
+    <div className="flex justify-center items-center min-h-screen">
+      <div className="maincontainer w-[400px] md:w-[1000px] h-[725px] md:h-[725px] bg-black flex flex-col justify-between overflow-y-auto">
     <div className="container mx-auto">
       {currentQuestion < 5 ? (
         <div>
@@ -68,7 +70,9 @@ const Quiz = () => {
         </div>
       )}
     </div>
+    </div>
+    </div>
   );
 };
 
-export default QuizPage;
+export default Quiz;

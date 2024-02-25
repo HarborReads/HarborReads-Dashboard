@@ -2,11 +2,11 @@ import React from "react";
 
 function RightBar() {
   return (
-    <div className="w-72 fixed right-0  bg-gray-50 dark:bg-gray-800 h-full">
+    <div className="w-72 fixed right-0 bg-beige-200 dark:bg-gray-800 h-full "> {/* Changed bg-blue-200 to bg-beige-200 */}
       <h1>New Release</h1>
 
       <div>
-        <div className="w-64 rounded-lg bg-white">
+        <div className="bg-slate-700 text-white flex flex-col h-screen">
           {" "}
           <img
             className="w-32 h-auto float-left"
