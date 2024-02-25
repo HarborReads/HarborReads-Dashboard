@@ -5,9 +5,11 @@ const { authenticateUser, secretKey } = require('./src/middleware/authMiddleware
 const authRoutes = require('./src/routes/auth');
 const bookRouter = require('./src/routes/books/bookRoutes');
 const profileRouter = require('./src/routes/profileRoutes');
+const cors = require('cors');
 require('./db');
 
 const app = express();
+app.use(cors());
 
 // Session middleware configuration
 app.use(session({
