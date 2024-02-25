@@ -19,6 +19,10 @@ async function searchBooks(req, res) {
       id: item.id,
       title: item.volumeInfo.title,
       authors: item.volumeInfo.authors,
+      imageUrl: item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail : null,
+      rating:item.volumeInfo.averageRating,
+      genre:item.volumeInfo.categories,
+      year:item.volumeInfo.publishedDate,
       // Add other relevant book information here
     }));
 
@@ -31,7 +35,47 @@ async function searchBooks(req, res) {
     res.status(500).json({ error: 'An error occurred while searching books.' });
   }
 }
+async function getSearchHistoryByUserId(req, res) {
+  const { userId } = req.body;
+
+  try {
+    if (!userId) {
+      return res.status(400).json({ error: 'Missing required field: userId' });
+    }
+
+    const searchHistory = await SearchHistory.find({ userId }).sort({ timestamp: -1 }).limit(6);
+
+    const historyBooks = [];
+    for (const history of searchHistory) {
+      const response = await axios.get('https://www.googleapis.com/books/v1/volumes', {
+        params: { q: `intitle:${history.query}` }
+      });
+
+      const bookData = response.data.items[0].volumeInfo;
+      const book = {
+        id: response.data.items[0].id,
+        title: bookData.title,
+        authors: bookData.authors,
+        imageUrl: bookData.imageLinks ? bookData.imageLinks.thumbnail : null,
+        rating: bookData.averageRating,
+        genre: bookData.categories,
+        year: bookData.publishedDate,
+        // Add other relevant book information here
+      };
+      historyBooks.push(book);
+    }
+
+    res.json({ searchHistory: historyBooks });
+  } catch (error) {
+    console.error('Error getting search history:', error);
+    res.status(500).json({ error: 'An error occurred while getting search history.' });
+  }
+}
+
+
+
 
 module.exports = {
-  searchBooks
+  searchBooks,
+  getSearchHistoryByUserId
 };
