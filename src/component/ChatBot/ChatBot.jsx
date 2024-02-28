@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Progress, Stack } from '@chakra-ui/react';
 import ChatBar from './ChatBar';
 import InitialContent from './InitialContent';
 
@@ -7,7 +6,6 @@ function ChatBot(props) {
   const [messages, setMessages] = useState([]);
   const [botTyping, setBotTyping] = useState(false);
   const [showInitialContent, setShowInitialContent] = useState(true);
-  const [isGeneratingResponse, setIsGeneratingResponse] = useState(false)
   const chatRef = useRef(null);
 
   const updateChat = (messageText) => {
@@ -43,16 +41,6 @@ function ChatBot(props) {
     // Scroll to the bottom of the chat messages when messages change
     chatRef.current?.scrollTo(0, chatRef.current?.scrollHeight);
   }, [messages]);
-
-  useEffect(() => {
-    if (isGeneratingResponse) {
-      // Simulate response generation
-      setTimeout(() => {
-        setIsGeneratingResponse(false);
-      }, 2000); // Change the duration as needed
-    }
-  }, [isGeneratingResponse]);
-
 
   return (
     <div className='h-full flex flex-col'>
