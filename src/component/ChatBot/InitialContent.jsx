@@ -6,23 +6,23 @@ function InitialContent(props) {
   return (
     <div className="flex flex-col justify-center items-center h-full  animate-fadeI">
       <div className="p-3 text-center">
-        <h1 className="text-5xl font-bold text-slate-700">
+        <h1 className="text-3xl md:text-5xl font-bold text-slate-700">
           Hello, Mindula <span className="text-blue-500 to-red" style={{ animation: 'changeColor 5s infinite' }}>{props.name}</span>!
         </h1>
-        <p className="text-4xl font-bold text-slate-500">How can I help you today?</p>
+        <p className="text-2xl md:text-4xl font-bold text-slate-500">How can I help you today?</p>
       </div>
       <div className="chatgrid text-slate-500" >
-        <button className="button" style={{ fontSize: '1.25rem'}}>
+        <button className="button md:h-[150px] h-[90px]" style={{ fontSize: '1.25rem'}}>
           New to reading?<br/> Need help finding a book?
           <SendIcon className="arrow" />
           <span className="click-to-send">Click to send</span>
         </button>
-        <button className="button" style={{ fontSize: '1.25rem'}}>
+        <button className="button md:h-[150px] h-[90px]" style={{ fontSize: '1.25rem'}}>
           Love reading?<br/> Let's find your next book!
           <SendIcon className="arrow" />
           <span className="click-to-send" >Click to send</span>
         </button>
-        <button className="button" style={{ fontSize: '1.25rem'}}>
+        <button className="button md:h-[150px] h-[80px] " style={{ fontSize: '1.25rem '}}>
           Interested in chatting about books?
           <SendIcon className="arrow" />
           <span className="click-to-send">Click to send</span>
