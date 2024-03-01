@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const openaiConnection = require('./openAI'); 
 
 const app = express();
-const chatGPT = new openaiConnection("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");
+const chatGPT = new openaiConnection("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");
 
 app.use(bodyParser.json());
 
@@ -56,7 +56,7 @@ async function generateResponse(req, res) {
             questionIndex: nextQuestionIndex
         });
     } else {
-        const promptSubquestionCheck = `Assume you are a helpful bot and respond ,Reviewing the user's response: '${userResponse}', to the question: '${questionAsked}'. If the user's response contains any subquestions or clarifications related to the topic of the question, or anything that is not a direct answer to the question asked, generate an answer/question/response to users response. If the user's question does not match the asked question, generate a message saying that the question asked is not related to the question.`;
+        const promptSubquestionCheck = `Assume you are a helpful bot and respond ,Reviewing the user's response: '${userResponse}', to the question: '${questionAsked}'. If the user's response contains any subquestions or clarifications related to the topic of the question, or anything that is not a direct answer to the question asked, generate an answer/question/response to users response. If the user's question does not match the asked question, generate a message saying that the question asked is not related to the question.(use less than 20 words)`;
         const response = await chatGPT.ask(promptSubquestionCheck);
         res.json({
             question: questionToAsk,
