@@ -1,14 +1,21 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, {useState, useRef, useEffect } from 'react';
 import ChatBar from './ChatBar';
 import InitialContent from './InitialContent';
+import ChatMessages from './ChatMessages';
 
 function ChatBot(props) {
   const [messages, setMessages] = useState([]);
   const [botTyping, setBotTyping] = useState(false);
   const [showInitialContent, setShowInitialContent] = useState(true);
+  const [chatType, setChatType] = useState("avidReaderChat");
+  const [question, setQuestion] = useState('');
+  const [userResponse, setUserResponse] = useState('');
+  const [botResponse, setBotResponse] = useState('');
+  const [questionIndex, setQuestionIndex] = useState(0);
   const chatRef = useRef(null);
 
-  const updateChat = (messageText) => {
+  const updateChat = async (messageText) => {
+    setBotTyping(true);
     if (messageText.trim() === "") return;
 
     const newMessage = {
@@ -19,22 +26,67 @@ function ChatBot(props) {
     // Update messages with the current state
     setMessages(prevMessages => [...prevMessages, newMessage]);
 
-    // Simulate bot typing for demonstration purposes
-    setBotTyping(true);
-    setTimeout(() => {
-      const botMessage = {
-        text: 'This is a bot response.',
-        from: 'bot'
-      };
+    console.log(messages); // FOR DEBUGGING
 
-      // Update messages again using the previous state
-      setMessages(prevMessages => [...prevMessages, botMessage]);
-      
-      setBotTyping(false);
+    // Send a POST request for the first message
+    if (messages.length === 0) {
+      try {
+        const res = await fetch('http://localhost:3001/chat/avidReadersChat/startConversation', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        const data = await res.json();
+        const response = data.question; // Assuming your backend responds with the bot's response
+        setQuestion(response); // Update the bot's message with the response from the backend
+        setQuestionIndex(0);
+        setBotResponseAndUpdateMessages(response); 
+        
+      } catch (error) {
+        console.error('Error sending request:', error);
+        setBotTyping(false); // Set botTyping to false on error
+      }
+    } else {
+      // Send a POST request for each subsequent message
+      try {
+        const res = await fetch('http://localhost:3001/chat/avidReadersChat/generateResponse', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            userResponse: messageText, // Use the current messageText as userResponse
+            questionAsked: question,
+            questionIndex: questionIndex   
+          })
+        });
+        const data = await res.json();
+        const response = data.response;
+        setQuestion(data.question);
+        setBotResponse(response); // Update the bot's message with the response from the backend
+        setQuestionIndex(data.questionIndex);
+        setBotResponseAndUpdateMessages(response); 
+        
+      } catch (error) {
+        console.error('Error sending request:', error);
+        setBotTyping(false); // Set botTyping to false on error
+      }
+    }
+  };
 
-      // Hide initial content after the first interaction
-      setShowInitialContent(false);
-    }, 1000);
+  const setBotResponseAndUpdateMessages = (response) => {
+    const botMessage = {
+      text: response,
+      from: 'bot'
+    };
+
+    // Update messages with the current state
+    setMessages(prevMessages => [...prevMessages, botMessage]);
+console.log(messages);
+    setBotTyping(false);
+    // Hide initial content after the first interaction
+    setShowInitialContent(false);
   };
 
   useEffect(() => {
@@ -44,28 +96,8 @@ function ChatBot(props) {
 
   return (
     <div className='h-full flex flex-col'>
-
-      {showInitialContent && <InitialContent user={props.user} />}
-
-      <div className="flex-1 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch flex flex-col p-3">
-        {messages.slice(0).map((message, index) => (
-          <div key={index} className={`flex items-end ${message.from === 'bot' ? '' : 'justify-end'}`}>
-            <div className={`flex flex-col space-y-2 text-md leading-tight max-w-lg mx-2 ${message.from === 'bot' ? 'order-2 items-start' : 'order-1 items-end'}`}>
-              <div>
-                <span className={`px-4 py-3 rounded-xl inline-block ${message.from === 'bot' ? 'rounded-bl-none bg-gray-100 text-gray-600' : 'rounded-br-none bg-blue-500 text-white'}`}>{message.text}</span>
-              </div>
-            </div>
-            <img src={message.from === 'bot' ? 'https://cdn.icon-icons.com/icons2/1371/PNG/512/robot02_90810.png' : 'https://i.pravatar.cc/100?img=7'} alt="" className="w-6 h-6 rounded-full" />
-          </div>
-        ))}
-        {botTyping && (
-          <div className="flex items-end">
-            <div className="flex flex-col space-y-2 text-md leading-tight mx-2 order-2 items-start">
-              <div><img src="https://support.signal.org/hc/article_attachments/360016877511/typing-animation-3x.gif" alt="..." className="w-16 ml-6" /></div>
-            </div>
-          </div>
-        )}
-      </div>
+      {showInitialContent && <InitialContent user={props.user} setChatType={setChatType} />}
+      <ChatMessages messages={messages} botTyping={botTyping} />
       <ChatBar updateChat={updateChat} />
     </div>
   );
