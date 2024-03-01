@@ -1,13 +1,15 @@
-// Dashboard.jsx
-import ProfileBar from './ProfileBar'; // Import the ProfileBar component
-import PreviousRecommendations from './RecommendBooks';
+import React from 'react';
+import ProfileBar from './ProfileBar'; // Assuming ProfileBar is imported
+import ChatBot from './ChatbotDirect'; // Assuming ChatBot is imported
 
 const Dashboard = ({ user }) => {
   return (
-    <div className="dashboard">
+    <div className="dashboard mt-3">
       {/* ProfileBar component within the Dashboard component */}
       <ProfileBar user={user} />
-      <PreviousRecommendations/>
+      <div className="mt-8"> {/* Add margin top for spacing */}
+        <ChatBot/>
+      </div>
       {/* Other dashboard content */}
     </div>
   );

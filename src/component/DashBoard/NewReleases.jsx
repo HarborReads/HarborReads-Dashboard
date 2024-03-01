@@ -1,4 +1,3 @@
-
 import SearchHistory from '../search/SearchHistory';
 
 const PreviousRecommendations = () => {
@@ -12,4 +11,3 @@ const PreviousRecommendations = () => {
 };
 
 export default PreviousRecommendations;
-
