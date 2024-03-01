@@ -5,6 +5,7 @@ const { authenticateUser, secretKey } = require('./src/middleware/authMiddleware
 const authRoutes = require('./src/routes/auth');
 const bookRouter = require('./src/routes/books/bookRoutes');
 const profileRouter = require('./src/routes/profileRoutes');
+const chatRouter=require('./src/routes/chatRoutes');
 const cors = require('cors');
 require('./db');
 
@@ -29,6 +30,9 @@ app.use('/protected', authenticateUser, require('./src/routes/protected/protecte
 
 // Mounting bookRouter at /books/search path
 app.use('/books/search', bookRouter);
+
+// Mounting bookRouter at /books/search path
+app.use('/chat', chatRouter);
 
 // Mounting profileRouter at /profile
 app.use('/profile', authenticateUser, profileRouter);
