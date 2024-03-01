@@ -4,7 +4,7 @@ import SendIcon from '@mui/icons-material/Send';
 function TypingBar({ updateChat }) {
   return (
     <div className="px-4 pt-4 mb-2 sm:mb-3" style={{ marginBottom: '1rem' }}>
-      <div className="relative flex ">
+      <div className="relative flex mb-3">
         <input
           type="text"
           placeholder="Say something..."
