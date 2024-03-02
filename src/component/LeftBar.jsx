@@ -7,7 +7,7 @@ import search from '../icons/Search.png';
 import home from '../icons/home.png';
 import library from '../icons/library.png';
 
-import '../App.css'
+import '../App.css';
 
 const navItems = [
   { to: '/', icon: home, text: 'Home' },
