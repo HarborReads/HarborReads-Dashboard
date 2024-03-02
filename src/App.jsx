@@ -14,6 +14,7 @@ import BookPreview from './component/BookPreview';
 
 const user = { name: 'John Doe', image: 'profile.jpg' };
 
+
 const App = () => {
   
   return (
@@ -38,3 +39,4 @@ const App = () => {
 };
 
 export default App;
+
