@@ -11,7 +11,9 @@ function RightBar() {
     <div>
       <button
         onClick={toggleRightBar}
+
         className="fixed top-0 right-0 z-50 p-2 text-gray-500 sm:hidden focus:outline-none hover:bg-bg-#C19A6B  dark:hover:bg-gray-700"
+
       >
         <span className="sr-only">Toggle Right Bar</span>
         <svg
@@ -31,6 +33,7 @@ function RightBar() {
         </svg>
       </button>
       {isRightBarOpen && (
+
         <div className="w-64 fixed top-0 right-0 bg-white h-full shadow-lg">
           <div className="p-4">
             <h3 className="text-black text-lg font-bold mb-4">New Releases</h3>
@@ -50,6 +53,7 @@ function RightBar() {
                 src="/public/Rectangle 97.png"
                 alt=""
               />
+
             </div>
           </div>
         </div>

@@ -11,9 +11,11 @@ import ChatBot from './component/ChatBot/ChatBot'
 import RightBar from './component/RightBar/RightBar';
 import Dashboard from './component/DashBoard/DashBoard';
 import BookPreview from './component/BookPreview';
-import EditProfile from './component/EditProfile';
+import ReadingInsights from './component/ReadingInsights';
+
 
 const user = { name: 'John Doe', image: 'profile.jpg' };
+
 
 const App = () => {
   
@@ -28,6 +30,7 @@ const App = () => {
             <Route path="/chatbot" element={<ChatBot element={user}/>}/>
             <Route path="/" element={<Dashboard user={user} />} /> {/* Default route for ContentPane */}
             <Route path="/bookpre" element={<BookPreview/>}/>
+            <Route path="/insights" element={<ReadingInsights/>}/>
 
           </Routes>
         </div>
@@ -39,3 +42,4 @@ const App = () => {
 };
 
 export default App;
+
