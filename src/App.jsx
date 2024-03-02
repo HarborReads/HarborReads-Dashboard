@@ -8,9 +8,11 @@ import SearchPage from './component/search/SearchPage';
 import ChatBot from './component/ChatBot'
 import RightBar from './component/RightBar/RightBar';
 import Dashboard from './component/DashBoard/DashBoard';
+import BookPreview from './component/BookPreview';
 
-const user = { name: 'John Doe', image: 'profile.jpg' };
+const user = { name: 'Sandali', image: 'profile.jpg' };
 const App = () => {
+  
   return (
     <Router>
       <div className="grid grid-cols-2 md:grid-cols-5">
@@ -20,12 +22,14 @@ const App = () => {
             <Route path="/search" element={<SearchPage />} /> {/* Default route for ContentPane */}
             <Route path="/chatbot" element={<ChatBot/>}/>
             <Route path="/" element={<Dashboard user={user} />} /> {/* Default route for ContentPane */}
+            <Route path="/bookpre" element={<BookPreview/>}/>
           </Routes>
         </div>
         <RightBar className="RightBar col-span-1 md:col-span-1" />
       </div>
     </Router>
   );
+  
 };
 
 export default App;
