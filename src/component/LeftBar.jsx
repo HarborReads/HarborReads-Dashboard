@@ -16,6 +16,7 @@ const navItems = [
   { to: '/search', icon: search, text: 'Search' },
   { to: '/library', icon: library, text: 'Your Library' },
   { to: '/insights', icon: team, text: 'Reading Insights' },
+  { to: '/bookpre', icon: team, text: 'Book Preview' },
 ];
 
 const NavItem = ({ to, icon, text }) => (
