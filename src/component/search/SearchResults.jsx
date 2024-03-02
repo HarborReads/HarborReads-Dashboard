@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import BookInfo from '../Reusables/BookInfo';
 
+// eslint-disable-next-line react/prop-types
 function SearchResults({ searchTerm }) {
   const [searchResults, setSearchResults] = useState([]);
   const userId = "60f6a3b4f8d9a652fc2f2e87";

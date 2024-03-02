@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../assets/logo.png';
+import nLogo from '../icons/newLogo.png';
 import team from '../icons/team.png';
 import chatbot from '../icons/chatbot.png';
 import search from '../icons/Search.png';
@@ -19,8 +19,10 @@ const navItems = [
 
 const NavItem = ({ to, icon, text }) => (
   <li>
-    <Link to={to} className="flex items-center py-2 px-4 hover:bg-gray-700">
-      <img src={icon} className="h-6 mr-2" alt={text} />
+    <Link to={to} className="flex items-center py-2 px-4 hover:bg-gradient-to-r from-nav-bg to-nav-brown- hover rounded-full ">
+      <div className=" rounded-full p-2 mr-2 bg-white hover:bg-nav-brown"> {/* Added background color and padding */}
+        <img src={icon} className="h-6 " alt={text} /> {/* Removed background color for image */}
+      </div>
       {text}
     </Link>
   </li>
@@ -29,9 +31,9 @@ const NavItem = ({ to, icon, text }) => (
 function LeftBar() {
    return (
      <div className="left-bar-container">
-       <aside className="bg-slate-700 text-white flex flex-col h-screen"> {/* Changed background color and text color */}
+       <aside className="bg-white text-grey 700 flex flex-col h-screen"> {/* Changed background color and text color */}
          <div className="p-4 flex items-center">
-           <img src={logo} className="h-50" alt="Logo" />
+           <img src={nLogo} className=" h-50" alt="Logo" />
          </div>
          <nav className="py-4 flex-grow"> {/* Added flex-grow class */}
            <ul>

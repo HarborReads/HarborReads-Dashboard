@@ -2,7 +2,7 @@ import React from "react";
 
 function RightBar() {
   return (
-    <div className="w-72 fixed right-0 bg-beige-200 dark:bg-gray-800 h-full "> {/* Changed bg-blue-200 to bg-beige-200 */}
+    <div className="w-72 fixed right-0 bg-beige-200 dark:bg-white h-full "> {/* Changed bg-blue-200 to bg-beige-200 */}
       <h1>New Release</h1>
 
       <div>
