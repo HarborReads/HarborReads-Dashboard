@@ -10,10 +10,12 @@ import ChatBot from './component/ChatBot/ChatBot'
 
 import RightBar from './component/RightBar/RightBar';
 import Dashboard from './component/DashBoard/DashBoard';
+import BookPreview from './component/BookPreview';
 
 const user = { name: 'John Doe', image: 'profile.jpg' };
 
 const App = () => {
+  
   return (
     <Router>
       <div className="grid grid-cols-2 md:grid-cols-5">
@@ -24,6 +26,7 @@ const App = () => {
 
             <Route path="/chatbot" element={<ChatBot element={user}/>}/>
             <Route path="/" element={<Dashboard user={user} />} /> {/* Default route for ContentPane */}
+            <Route path="/bookpre" element={<BookPreview/>}/>
 
           </Routes>
         </div>
@@ -31,6 +34,7 @@ const App = () => {
       </div>
     </Router>
   );
+  
 };
 
 export default App;

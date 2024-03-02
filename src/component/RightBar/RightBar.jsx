@@ -1,28 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 
 function RightBar() {
-  return (
-    <div className="w-72 fixed right-0 bg-beige-200 dark:bg-white h-full "> {/* Changed bg-blue-200 to bg-beige-200 */}
-      <h1>New Release</h1>
+  const [isRightBarOpen, setIsRightBarOpen] = useState(true);
 
-      <div>
-        <div className="bg-slate-700 text-white flex flex-col h-screen">
-          {" "}
-          <img
-            className="w-32 h-auto float-left"
-            src="/public/Rectangle 97.png"
-            alt=""
+  const toggleRightBar = () => {
+    setIsRightBarOpen(!isRightBarOpen);
+  };
+
+  return (
+    <div>
+      <button
+        onClick={toggleRightBar}
+        className="fixed top-0 right-0 z-50 p-2 text-gray-500 sm:hidden focus:outline-none hover:bg-bg-#C19A6B  dark:hover:bg-gray-700"
+      >
+        <span className="sr-only">Toggle Right Bar</span>
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d={
+              isRightBarOpen ? "M6 18L18 6M6 6l12 12" : "M18 18L6 6M18 6l-12 12"
+            }
           />
-          <li>
-            {" "}
-            Commissaire Georges Dupin’s holiday plans are rudely interrupted
-            when someone pushes a noted doctor out of a top-floor window in the
-            French harbor city of Concarneau. As the cantankerous but brilliant
-            Dupin searches for the killer, he uncovers hidden, cutthroat
-            political and social rivalries that roil beneath the surface.
-          </li>
+        </svg>
+      </button>
+      {isRightBarOpen && (
+        <div className="w-64 fixed top-0 right-0 bg-white h-full shadow-lg">
+          <div className="p-4">
+            <h3 className="text-black text-lg font-bold mb-4">New Releases</h3>
+            <div className="flex flex-col space-y-4">
+              <img
+                className="w-full h-46"
+                src="src\assets\RightBar.png"
+                alt=""
+              />
+              <img
+                className="w-full h-46"
+                src="/public/Rectangle 97.png"
+                alt=""
+              />
+              <img
+                className="w-full h-auto"
+                src="/public/Rectangle 97.png"
+                alt=""
+              />
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
