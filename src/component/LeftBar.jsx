@@ -6,6 +6,7 @@ import chatbot from '../icons/chatbot.png';
 import search from '../icons/Search.png';
 import home from '../icons/home.png';
 import library from '../icons/library.png';
+import BookSection from './LeftBarBookSection';
 
 import '../App.css'
 
@@ -35,13 +36,16 @@ function LeftBar() {
          <div className="p-4 flex items-center">
            <img src={nLogo} className=" h-50" alt="Logo" />
          </div>
-         <nav className="py-4 flex-grow"> {/* Added flex-grow class */}
+         <nav className="py-2 flex-grow"> {/* Added flex-grow class */}
            <ul>
              {navItems.map((item, index) => (
                <NavItem key={index} {...item} />
              ))}
            </ul>
          </nav>
+         <div >
+              <BookSection/ >
+         </div>
        </aside>
      </div>
    );
