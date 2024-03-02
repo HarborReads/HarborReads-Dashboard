@@ -13,6 +13,7 @@ import Dashboard from './component/DashBoard/DashBoard';
 import BookPreview from './component/BookPreview';
 import ReadingInsights from './component/ReadingInsights';
 
+
 const user = { name: 'John Doe', image: 'profile.jpg' };
 
 
@@ -25,7 +26,7 @@ const App = () => {
         <div className="content-pane col-span-3 md:col-span-3">
           <Routes>
             <Route path="/search" element={<SearchPage />} /> {/* Default route for ContentPane */}
-
+            <Route path="/edit-profile" element={<EditProfile/>}/>
             <Route path="/chatbot" element={<ChatBot element={user}/>}/>
             <Route path="/" element={<Dashboard user={user} />} /> {/* Default route for ContentPane */}
             <Route path="/bookpre" element={<BookPreview/>}/>
