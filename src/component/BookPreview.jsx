@@ -31,7 +31,7 @@ function BookPreview() {
         <p className="w-[700px] text-[15px] absolute left-[55px] top-[495px] text-justify text-black">Author: Thanhha Lai</p>
         <p className="w-[700px] text-[15px] absolute left-[55px] top-[525px] text-justify text-black">Genre: Historical Fiction</p>
         <p className="w-[700px] text-[15px] absolute left-[55px] top-[555px] text-justify text-black">Number of Pages: 272</p>
-        <button className="w-[170px] h-[35px] absolute left-[285px] top-[240px] rounded-[30px] bg-[#3b9e18] border border-white" />
+        <button className="w-[170px] h-[35px] absolute left-[285px] top-[240px] rounded-[30px] bg-brown border border-white" />
         <button className="text-m font-bold text-left text-white h-[39px] absolute left-[326px] top-[235px]">Add to shelf</button>
       </div>
     </div>
