@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import LeftBar from './component/LeftBar';
 import SearchPage from './component/search/SearchPage';
@@ -7,6 +7,7 @@ import RightBar from './component/RightBar/RightBar';
 import Dashboard from './component/DashBoard/DashBoard';
 import BookPreview from './component/BookPreview';
 import ReadingInsights from './component/ReadingInsights';
+import EditProfile from './component/EditProfile';
 import SignIn from './component/SignIn';
 import SignUp from './component/SignUp';
 
@@ -19,6 +20,17 @@ const App = () => {
   const [signinMsg, setSigninMsg] = useState('');
   const [signupMsg, setSignUpMsg] = useState('');
   const [auth,setAuth]=useState("signin");
+  const [firstVisit, setFirstVisit] = useState(true); // Track if it's the user's first visit
+
+  useEffect(() => {
+    // Check if user has visited before
+    const visited = localStorage.getItem('visited');
+    if (visited) {
+      setFirstVisit(false);
+    } else {
+      localStorage.setItem('visited', 'true');
+    }
+  }, []);
 
   const handleSignIn = async (username, password) => {
     try {
@@ -75,10 +87,16 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element=
-          {isAuthenticated ? <AuthenticatedRoutes /> : (
-            auth === "signin" ? 
-              <SignIn handleSignIn={handleSignIn} signinMsg={signinMsg} setAuth={setAuth} /> :
-              <SignUp handleSignUp={handleSignUp} signupMsg={signupMsg} setAuth={setAuth}/>
+          {firstVisit ? (
+            <SignUp handleSignUp={handleSignUp} signupMsg={signupMsg} setAuth={setAuth} />
+          ) : isAuthenticated ? (
+            <AuthenticatedRoutes />
+          ) : (
+            auth === 'signin' ? (
+              <SignIn handleSignIn={handleSignIn} signinMsg={signinMsg} setAuth={setAuth} />
+            ) : (
+              <SignUp handleSignUp={handleSignUp} signupMsg={signupMsg} setAuth={setAuth} />
+            )
           )}>
         </Route>
         <Route path="*" element={<AuthenticatedRoutes />} />
@@ -86,6 +104,7 @@ const App = () => {
     </Router>
   );
 };
+
 
 const AuthenticatedRoutes = () => {
   return (
@@ -96,6 +115,7 @@ const AuthenticatedRoutes = () => {
           <Route path="/search" element={<SearchPage />} />
           <Route path="/chatbot" element={<ChatBot element={user}/>} />
           <Route path="/bookpre" element={<BookPreview />} />
+          <Route path="/edit-profile" element={<EditProfile />} />
           <Route path='/' element={<Dashboard user={user} />} />
         </Routes>
       </div>
