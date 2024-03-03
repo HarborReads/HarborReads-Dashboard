@@ -6,11 +6,10 @@ import './App.css';
 import LeftBar from './component/LeftBar';
 import SearchPage from './component/search/SearchPage';
 
-import ChatBot from './component/ChatBot/ChatBot'
-
-import RightBar from './component/RightBar/RightBar';
+import ChatBot from './component/ChatBot/ChatBot';
 import Dashboard from './component/DashBoard/DashBoard';
 import BookPreview from './component/BookPreview';
+import RightBar from './component/RightBar/RightBar';
 
 const user = { name: 'John Doe', image: 'profile.jpg' };
 
