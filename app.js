@@ -71,7 +71,7 @@ app.use('/chat', chatRouter);
 app.use('/user',userNameRouter);
 
 // Mounting profileRouter at /profile
-app.use('/profile', authenticateUser, profileRouter);
+app.use('/profile', profileRouter);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

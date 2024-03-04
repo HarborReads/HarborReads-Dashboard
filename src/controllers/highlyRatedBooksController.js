@@ -10,14 +10,14 @@ async function getHighlyRatedBooks(req,res) {
         printType: 'books', // Only fetch books
       }
     });
-    console.log("hey");
+    
 
     // Filter books with a rating of 4 or higher
     const filteredBooks = response.data.items.filter(item => {
         // Check if the volumeInfo contains averageRating and it's greater than or equal to 4
         return item.volumeInfo.averageRating !== undefined && item.volumeInfo.averageRating >2;
       });
-      console.log("hey");
+    
     // Extract relevant book information from the filtered books
     const books = filteredBooks.map(item => ({
       id: item.id,
@@ -28,7 +28,7 @@ async function getHighlyRatedBooks(req,res) {
       rating: item.volumeInfo.averageRating,
       // Add other relevant book information here
     }));
-    console.log("hey");
+  
     res.json(books) ;
   } catch (error) {
     console.error('Error fetching highly rated books:', error);
