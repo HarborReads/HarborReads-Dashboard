@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import './ProfileBar.css';
 
-const ProfileBar = ({ user }) => {
+const ProfileBar = ({ userName }) => {
   const [showName, setShowName] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
@@ -49,7 +49,7 @@ const ProfileBar = ({ user }) => {
         <div className="ml-2">
             {showName && (
               <p className="text-gray-900 text-m md:text-3xl font-bold typing-animation">
-                Hi, {user.name} <span role="img" aria-label="Wave" className="inline-block w-10 h-13 md:w-15 md:h-25">👋</span> 
+                Hi, {userName} <span role="img" aria-label="Wave" className="inline-block w-10 h-13 md:w-15 md:h-25">👋</span> 
               </p>
             )}
         </div>

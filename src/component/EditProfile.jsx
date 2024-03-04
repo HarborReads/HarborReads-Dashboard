@@ -10,8 +10,8 @@ function EditProfile() {
   const [email, setEmail] = useState("");
   const [profilePicture, setProfilePicture] = useState(null);
 
- // Access the navigate function
- const navigate = useNavigate();
+  // Access the navigate function
+  const navigate = useNavigate();
 
   // Event handler for gender selection
   const handleGenderChange = (e) => {
@@ -22,7 +22,7 @@ function EditProfile() {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Navigate back to the dashboard
-    history.push("/");
+    navigate("/");
   };
 
   // Event handler for profile picture upload
@@ -41,7 +41,6 @@ function EditProfile() {
     // Handle back button action here
     navigate("/");
   };
-
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
@@ -106,6 +105,19 @@ function EditProfile() {
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
+          {/* Email Field */}
+          <div className="mb-4 mx-auto max-w-md">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              className="mt-1 block w-full sm:w-100 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
           {/* Password Field */}
           <div className="mb-4 mx-auto max-w-md">
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
@@ -146,19 +158,6 @@ function EditProfile() {
               className="mt-1 block w-full sm:w-100 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               value={dob}
               onChange={(e) => setDOB(e.target.value)}
-            />
-          </div>
-          {/* Email Field */}
-          <div className="mb-4 mx-auto max-w-md">
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              className="mt-1 block w-full sm:w-100 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           {/* Save Button */}

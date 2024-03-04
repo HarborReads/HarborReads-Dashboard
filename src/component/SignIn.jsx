@@ -26,7 +26,7 @@ const SignIn = ({ handleSignIn, signinMsg, setAuth }) => {
             type="text"
             id="username"
             className="border border-gray-300 rounded-lg block w-full px-3 py-2.5 placeholder-gray-500 text-gray-800"
-            placeholder="Email"
+            placeholder="Username"
             required
             value={username}
             onChange={(e) => setUsername(e.target.value)}
