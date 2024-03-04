@@ -127,6 +127,7 @@ function BookPromotion() {
                         Buy Now
                     </a>
                 </div>
+
             </div>
           
 

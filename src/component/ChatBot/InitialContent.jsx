@@ -2,7 +2,7 @@ import React from 'react';
 import SendIcon from '@mui/icons-material/PresentToAll';
 import './ChatBot.css';
 
-function InitialContent(props) {
+function InitialContent(userName) {
   const handleButtonClick = (value) => {
     props.setChatType(value);
   };
@@ -10,7 +10,7 @@ function InitialContent(props) {
     <div className="flex flex-col justify-center items-center h-full  animate-fadeI">
       <div className="p-3 text-center">
         <h1 className="text-3xl md:text-5xl font-bold text-slate-700">
-          Hello, Mindula <span className="text-blue-500 to-red" style={{ animation: 'changeColor 5s infinite' }}>{props.name}</span>!
+          Hello, Mindula <span className="text-blue-500 to-red" style={{ animation: 'changeColor 5s infinite' }}>{userName}</span>!
         </h1>
         <p className="text-2xl md:text-4xl font-bold text-slate-500">How can I help you today?</p>
       </div>

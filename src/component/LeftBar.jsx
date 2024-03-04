@@ -8,7 +8,7 @@ import home from '../icons/home.png';
 import library from '../icons/library.png';
 import BookSection from './LeftBarBookSection';
 
-import '../App.css'
+import '../App.css';
 
 const navItems = [
   { to: '/', icon: home, text: 'Home' },
