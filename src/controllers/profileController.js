@@ -10,7 +10,6 @@ exports.getEditProfileForm = async (req, res) => {
             // Create a new user profile based on the schema in userProfile.js
             userProfile = new UserProfile({
                 user: userId,
-                email: '', // Add default values for other fields if needed
                 gender: '',
                 dob: new Date()
             });
@@ -25,7 +24,7 @@ exports.getEditProfileForm = async (req, res) => {
 };
 
 exports.updateProfile = async (req, res) => {
-    const { email, gender, dob } = req.body;
+    const {  gender, dob } = req.body;
 
     try {
         let userProfile = await UserProfile.findOne({ user: req.session.user.id });
@@ -33,12 +32,10 @@ exports.updateProfile = async (req, res) => {
         if (!userProfile) {
             userProfile = new UserProfile({
                 user: req.session.user.id,
-                email,
                 gender,
                 dob
             });
         } else {
-            userProfile.email = email;
             userProfile.gender = gender;
             userProfile.dob = dob;
         }
@@ -51,3 +48,5 @@ exports.updateProfile = async (req, res) => {
         res.status(500).json({ message: 'Server Error' });
     }
 };
+
+
