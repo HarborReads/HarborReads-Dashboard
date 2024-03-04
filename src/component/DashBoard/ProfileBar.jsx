@@ -62,7 +62,7 @@ const ProfileBar = ({ userName }) => {
           {menuOpen && (
               <div className="absolute top-0 right-2 mt-8 md-5 mr-4 md:mr-5 w-32 bg-transparent rounded-lg shadow-lg overflow-hidden z-10">
                 <Link to="/edit-profile" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={toggleMenu}>Edit Profile</Link>
-                <Link to="/logout" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={toggleMenu}>Log Out</Link>
+                <Link to="/" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => { setAuth(false); toggleMenu(); }}>Log Out</Link>
               </div>
                 )}
       </div>

@@ -114,30 +114,10 @@ useEffect(() => {
     getUserData();
 }, [currentSession]);
 
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element=
-          {firstVisit ? (
-            <SignUp handleSignUp={handleSignUp} signupMsg={signupMsg} setAuth={setAuth} />
-          ) : isAuthenticated ? (
-            <AuthenticatedRoutes userName={userName} />
-          ) : (
-            auth === 'signin' ? (
-              <SignIn handleSignIn={handleSignIn} signinMsg={signinMsg} setAuth={setAuth} />
-            ) : (
-              <SignUp handleSignUp={handleSignUp} signupMsg={signupMsg} setAuth={setAuth} />
-            )
-          )}>
-        </Route>
-        <Route path="*" element={<AuthenticatedRoutes userName={userName} />} />
-      </Routes>
-    </Router>
-  );
-};
+const AuthenticatedRoutes = ({userName,currentSession}) => {
+  console.log(" hyyy");
+  console.log(currentSession);
 
-
-const AuthenticatedRoutes = ({userName}) => {
   return (
     <div className="grid grid-cols-2 md:grid-cols-5">
       <LeftBar className="LeftBar col-span-1 md:col-span-1" />
@@ -146,14 +126,46 @@ const AuthenticatedRoutes = ({userName}) => {
           <Route path="/search" element={<SearchPage />} />
           <Route path="/chatbot" element={<ChatBot element={userName}/>} />
           <Route path="/bookpre" element={<BookPreview />} />
-          <Route path="/edit-profile" element={<EditProfile />} />
-          <Route path='/' element={<Dashboard userName={userName} />} />
+          <Route path="/edit-profile" element={<EditProfile currentSession={currentSession}/>} />
+          <Route path='/' element={<Dashboard userName={userName} setAuth={setAuth}/>} />
         </Routes>
       </div>
       <RightBar className="RightBar col-span-1 md:col-span-1" />
     </div>
   );
 };
+
+// const AuthenticationFunction=({
+//   useEffect(()=>{
+
+//   }
+//   )
+// })
+
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element=
+          {firstVisit ? (
+            <SignUp handleSignUp={handleSignUp} signupMsg={signupMsg} setAuth={setAuth} />
+          ) : isAuthenticated ? (
+            <AuthenticatedRoutes userName={userName} currentSession={currentSession} />
+          ) : (
+            auth === 'signin' ? (
+              <SignIn handleSignIn={handleSignIn} signinMsg={signinMsg} setAuth={setAuth} />
+            ) : (
+              <SignUp handleSignUp={handleSignUp} signupMsg={signupMsg} setAuth={setAuth} />
+            )
+          )}>
+        </Route>
+        <Route path="*" element={<AuthenticatedRoutes userName={userName} currentSession={currentSession} />} />
+      </Routes>
+    </Router>
+  );
+};
+
+
+
 
 export default App;
 
