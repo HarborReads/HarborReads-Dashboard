@@ -23,7 +23,9 @@ module.exports = {
         'light-brown': '#c45643',
         'nav-brown': '#b56355',
         'nav-bg': '#f5d2cb',
-        'icon-bg': '#b56859'
+        'icon-bg': '#b56859',
+        'right-orange':'#d6833c',
+        'green': '#25541e',
       },
     },
   },

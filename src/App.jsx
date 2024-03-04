@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import LeftBar from './component/LeftBar';
 import SearchPage from './component/search/SearchPage';
+
 import ChatBot from './component/ChatBot/ChatBot';
 import RightBar from './component/RightBar/RightBar';
 import Dashboard from './component/DashBoard/DashBoard';
