@@ -1,27 +1,56 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const { authenticateUser, secretKey } = require('./src/middleware/authMiddleware');
 const authRoutes = require('./src/routes/auth');
 const bookRouter = require('./src/routes/books/bookRoutes');
 const ratedBookRouter = require('./src/routes/books/highlyRatedBookRoute');
 const profileRouter = require('./src/routes/profileRoutes');
 const chatRouter=require('./src/routes/chatRoutes');
-const cors = require('cors');
+const userNameRouter=require('./src/routes/userRoutes');
+
 require('./db');
 
 const app = express();
-app.use(cors());
 
-// Session middleware configuration
-app.use(session({
-  secret: secretKey,
-  resave: false,
-  saveUninitialized: false
+// Enable CORS for all routes
+app.use(cors({
+  origin: ['http://localhost:5173'],
+  methods:[ "POST","GET"],
+  credentials: true
 }));
 
+app.use(cookieParser());
 // Middleware
 app.use(bodyParser.json());
+
+// app.use(function(req, res, next) {
+//   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
+//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+//   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+//   res.setHeader('Access-Control-Allow-Credentials', 'true');
+//   next();
+// });
+
+// Session middleware configuration
+
+app.use(session({
+  name: 'session', // Set the cookie name to 'session_id'
+  secret: secretKey,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: false,
+    domain: 'localhost',
+    path:'/',
+    secure:false,
+    SameSite:'None'
+  },
+}));
+
+
 
 // Mounting authentication routes at /auth base URL
 app.use('/auth', authRoutes);
@@ -38,8 +67,11 @@ app.use('/books/popular', ratedBookRouter);
 // Mounting bookRouter at /books/search path
 app.use('/chat', chatRouter);
 
+// Mounting userNameRouter at /user path
+app.use('/user',userNameRouter);
+
 // Mounting profileRouter at /profile
-app.use('/profile', authenticateUser, profileRouter);
+app.use('/profile', profileRouter);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -52,3 +84,4 @@ const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
