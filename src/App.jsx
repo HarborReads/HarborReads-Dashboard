@@ -7,6 +7,7 @@ import RightBar from './component/RightBar/RightBar';
 import Dashboard from './component/DashBoard/DashBoard';
 import BookPreview from './component/BookPreview';
 import ReadingInsights from './component/ReadingInsights';
+import Challenges from './component/Challenges';
 import EditProfile from './component/EditProfile';
 import SignIn from './component/SignIn';
 import SignUp from './component/SignUp';
@@ -119,6 +120,7 @@ const AuthenticatedRoutes = ({userName,currentSession}) => {
   console.log(currentSession);
 
   return (
+
     <div className="grid grid-cols-2 md:grid-cols-5">
       <LeftBar className="LeftBar col-span-1 md:col-span-1" />
       <div className="content-pane col-span-3 md:col-span-3">
@@ -127,6 +129,8 @@ const AuthenticatedRoutes = ({userName,currentSession}) => {
           <Route path="/chatbot" element={<ChatBot element={userName}/>} />
           <Route path="/bookpre" element={<BookPreview />} />
           <Route path="/edit-profile" element={<EditProfile currentSession={currentSession}/>} />
+          <Route path="/insights" element={<ReadingInsights/>}/>
+           <Route path="/challenges" element={<Challenges/>}/>
           <Route path='/' element={<Dashboard userName={userName} setAuth={setAuth}/>} />
         </Routes>
       </div>
