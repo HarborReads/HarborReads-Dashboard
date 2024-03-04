@@ -1,38 +1,62 @@
-import React from 'react';
-import logo from '../icons/logo.png';
+import React, { useState } from 'react';
+import logo from '../icons/newLogo.png';
+import backgroundImage from '../assets/landingBg.png'; // Path to your background image
 
-export default function SignIn() {
+const SignIn = ({ handleSignIn, signinMsg, setAuth }) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [showMessage, setShowMessage] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await handleSignIn(username, password);
+    setShowMessage(true);
+    setTimeout(() => {
+      setShowMessage(false);
+    }, 10000); // 30 seconds
+  };
+
   return (
-    <div className="flex justify-center items-center min-h-screen">
-      <div className="shadow-[0px_4px_28px_3px_rgba(1,1,1,1.00)] rounded-[43px] bg-white flex flex-col md:flex-row">
-        <div className="w-[300px] h-[300px] md:w-[400px] md:h-[500px]">
-          <h2 className="text-2xl font-bold text-center mt-8 md:mt-24">Hello!</h2>
-          <h2 className="text-sm md:text-lg font-bold text-center">Sign into your account!</h2>
-
-          <div className="flex justify-center">
-            <form className="max-w-sm mx-auto mt-5">
-
-              <div className="mb-5">
-                <input type="email" id="username" style={{ width: '250px' }} className="bg-gray-400 border text-sm md:text-base rounded-lg block p-2.5 md:p-3 dark:placeholder-gray-500 dark:text-white" placeholder="Email" required />
-              </div>
-              <div className="mb-5">
-                <input type="password" id="password" style={{ width: '250px' }} className="bg-gray-400 border text-sm md:text-base rounded-lg block p-2.5 md:p-3 dark:placeholder-gray-500 dark:text-white" placeholder="Password" required />
-              </div>
-
-              <h2 className="text-sm md:text-lg mb-2 text-center">Sign into your account!</h2>
-
-              <div className="flex justify-center">
-                <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm md:text-base px-5 py-2.5 md:py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Sign up</button>
-              </div>
-            </form>
-          </div>
-        </div>
-        <div className="w-[300px] h-[200px] md:w-[300px] md:h-[500px] bg-black rounded-[43px] flex flex-col justify-center items-center mt-4 md:mt-0">
-          <img src={logo} className="h-15 md:h-20" alt="Logo" />
-          <h2 className="text-2xl md:text-3xl font-extrabold text-white mt-4 md:mt-8">Welcome</h2>
-          <h2 className="text-2xl md:text-3xl font-extrabold text-white">Back!!</h2>
+    <div className="flex flex-col items-center justify-center min-h-screen py-6 bg-cover" style={{backgroundImage: `url(${backgroundImage})`}}>
+      <div className="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full">
+        <img src={logo} className="h-16 md:h-20 mx-auto mb-8" alt="Logo" />
+        <h2 className="text-center font-bold text-2xl md:text-3xl text-gray-800 mb-4">Discover Books You'll Love!</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="text"
+            id="username"
+            className="border border-gray-300 rounded-lg block w-full px-3 py-2.5 placeholder-gray-500 text-gray-800"
+            placeholder="Username"
+            required
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            type="password"
+            id="password"
+            className="border border-gray-300 rounded-lg block w-full px-3 py-2.5 placeholder-gray-500 text-gray-800"
+            placeholder="Password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button
+            type="submit"
+            className="bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300 text-white font-medium rounded-lg text-sm md:text-base px-5 py-3 w-full"
+          >
+            Sign In
+          </button>
+        </form>
+        {showMessage && (
+          <p className="text-center text-red-500 text-sm mt-4">{signinMsg}</p>
+        )}
+        <div className="text-center mt-4">
+          <p className="text-gray-800">New to HarborReads?</p>
+          <button className="font-bold text-blue-500 hover:text-blue-600" onClick={() => setAuth('signup')}>Sign Up</button>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default SignIn;

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import './ProfileBar.css';
 
-const ProfileBar = ({ user }) => {
+const ProfileBar = ({ userName }) => {
   const [showName, setShowName] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
@@ -49,7 +49,7 @@ const ProfileBar = ({ user }) => {
         <div className="ml-2">
             {showName && (
               <p className="text-gray-900 text-m md:text-3xl font-bold typing-animation">
-                Hi, {user.name} <span role="img" aria-label="Wave" className="inline-block w-10 h-13 md:w-15 md:h-25">👋</span> 
+                Hi, {userName} <span role="img" aria-label="Wave" className="inline-block w-10 h-13 md:w-15 md:h-25">👋</span> 
               </p>
             )}
         </div>
@@ -62,7 +62,7 @@ const ProfileBar = ({ user }) => {
           {menuOpen && (
               <div className="absolute top-0 right-2 mt-8 md-5 mr-4 md:mr-5 w-32 bg-transparent rounded-lg shadow-lg overflow-hidden z-10">
                 <Link to="/edit-profile" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={toggleMenu}>Edit Profile</Link>
-                <Link to="/logout" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={toggleMenu}>Log Out</Link>
+                <Link to="/" className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={() => { setAuth(false); toggleMenu(); }}>Log Out</Link>
               </div>
                 )}
       </div>
