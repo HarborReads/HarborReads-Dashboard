@@ -9,12 +9,12 @@ app.use(bodyParser.json());
 
 // Define static questions
 const staticQuestions = [
-    "Tell me about the last book you read that you couldn't put down. What was it about?",
-    "Describe a book that challenged your perspective or made you think deeply about a topic. What was the book and how did it impact you?",
-    "Share a book recommendation that you've received and loved. What was the book and why do you think it resonated with you?",
-    "Think about a book that surprised you with its plot twist or ending. What was the book and how did it affect your reading experience?",
-    "Discuss a book that you've read multiple times. What keeps you coming back to it?",
-    "Reflect on a book that inspired you or changed your life in some way. What was the book and how did it influence you?"
+    "Tell me about a story you've enjoyed that is set in the real world. What aspects of it appealed to you?",
+    "Describe a character from a book or movie that you found particularly compelling. What traits did they have that you liked?",
+    "Share a memorable moment from a story you've read that combined both action and deep emotional moments. How did it impact you?",
+    "Think about a book that completely immersed you. What made it so engaging for you?",
+    "Discuss some of your favorite movies, TV shows, or games. What do you enjoy about them and how do they influence your reading preferences?",
+    "Reflect on topics or themes in your life that you find interesting or significant. How would you like to see them explored in a story?"
 ];
 
 // Initialize question index
@@ -26,12 +26,12 @@ async function analyzeResponseWithGPT(userResponse, questionAsked) {
     return{responseDirectReply};
 }
 
-function aRstartConversation(req, res) {
+function nRstartConversation(req, res) {
     questionIndex = 0;
     res.json({ question: staticQuestions[questionIndex] });
 }
 
-async function aRgenerateResponse(req, res) {
+async function nRgenerateResponse(req, res) {
     const { userResponse, questionAsked, questionIndex } = req.body;
 
     // Check if questions have been asked before
@@ -67,6 +67,6 @@ async function aRgenerateResponse(req, res) {
 }
 
 module.exports = {
-    aRstartConversation,
-    aRgenerateResponse
+    nRstartConversation,
+    nRgenerateResponse
 };
