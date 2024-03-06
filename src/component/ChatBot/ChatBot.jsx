@@ -3,7 +3,7 @@ import ChatBar from './ChatBar';
 import InitialContent from './InitialContent';
 import ChatMessages from './ChatMessages';
 
-function ChatBot(props) {
+function ChatBot(userName) {
   const [messages, setMessages] = useState([]);
   const [botTyping, setBotTyping] = useState(false);
   const [showInitialContent, setShowInitialContent] = useState(true);
@@ -96,7 +96,7 @@ console.log(messages);
 
   return (
     <div className='h-full flex flex-col'>
-      {showInitialContent && <InitialContent user={props.user} setChatType={setChatType} />}
+      {showInitialContent && <InitialContent userName={userName} setChatType={setChatType} />}
       <ChatMessages messages={messages} botTyping={botTyping} />
       <ChatBar updateChat={updateChat} />
     </div>
