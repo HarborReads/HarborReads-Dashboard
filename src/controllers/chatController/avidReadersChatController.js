@@ -3,7 +3,9 @@ const bodyParser = require('body-parser');
 const openaiConnection = require('./openAI'); 
 
 const app = express();
+
 const chatGPT = new openaiConnection("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");
+
 
 app.use(bodyParser.json());
 
@@ -36,12 +38,12 @@ async function analyzeResponseWithGPT(userResponse, questionAsked) {
     return{responseDirectReply};
 }
 
-function startConversation(req, res) {
+function aRstartConversation(req, res) {
     questionIndex = 0;
     res.json({ question: staticQuestions[questionIndex] });
 }
 
-async function generateResponse(req, res) {
+async function aRgenerateResponse(req, res) {
     const { userResponse, questionAsked, questionIndex } = req.body;
 
     // Check if questions have been asked before
@@ -111,4 +113,5 @@ module.exports = {
     startConversation,
     generateResponse,
     generateRecommendation
+
 };
