@@ -10,6 +10,7 @@ const ratedBookRouter = require('./src/routes/books/highlyRatedBookRoute');
 const profileRouter = require('./src/routes/profileRoutes');
 const chatRouter=require('./src/routes/chatRoutes');
 const userNameRouter=require('./src/routes/userRoutes');
+const recRouter=require('./src/routes/recRoutes');
 
 require('./db');
 
@@ -66,6 +67,9 @@ app.use('/books/popular', ratedBookRouter);
 
 // Mounting bookRouter at /books/search path
 app.use('/chat', chatRouter);
+
+// Mounting recRouter at /rec path
+app.use('/rec',recRouter);
 
 // Mounting userNameRouter at /user path
 app.use('/user',userNameRouter);
