@@ -3,26 +3,38 @@ const bodyParser = require('body-parser');
 const openaiConnection = require('./openAI'); 
 
 const app = express();
-const chatGPT = new openaiConnection("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");
+
+const chatGPT = new openaiConnection("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");
+
 
 app.use(bodyParser.json());
 
 // Define static questions
 const staticQuestions = [
-    "Tell me about the last book you read that you couldn't put down. What was it about?",
-    "Describe a book that challenged your perspective or made you think deeply about a topic. What was the book and how did it impact you?",
-    "Share a book recommendation that you've received and loved. What was the book and why do you think it resonated with you?",
-    "Think about a book that surprised you with its plot twist or ending. What was the book and how did it affect your reading experience?",
-    "Discuss a book that you've read multiple times. What keeps you coming back to it?",
-    "Reflect on a book that inspired you or changed your life in some way. What was the book and how did it influence you?"
+    "Hi there, Let's find a book that matches your interests! Which genres do you enjoy most as an avid reader?",
+    "If asked, what are your all-time favorite books?",
+    "When it comes to character engagement, what kind of characters do you prefer in stories?",
+    "Do you tend to get exhausted after a certain number of pages? If so, what's your typical limit? ",
+    "What mood are you looking for in the next book you read?",
+    "Are there any specific themes or topics you have in mind for your next read?",
+    "Do you have any specific dislikes or elements you prefer to avoid in your reading?",
+    "What else would you like me to know about your reading preferences or what you're looking for in your next book?",
+    "Hang on while I find some suggestions for your next read!"
 ];
 
 // Initialize question index
 let questionIndex = 0;
 
 async function analyzeResponseWithGPT(userResponse, questionAsked) {
-    const promptDirectReply = `Is the user's response '${userResponse}' a direct answer to the question '${questionAsked}'? Please respond with 'Yes' or 'No'. If user wants to pass the question then respond with 'Yes'`;
+    const promptDirectReply = `Considering the user's response: '${userResponse}', did the user  respond to the question '${questionAsked}'? 
+    Please respond with 'Yes' if the user's response acknowledges the question, even if it lacks specific details. 
+    If the response provides relevant information, respond with 'Yes' as well. 
+    If the user response is completely unrelated or unclear, respond with 'No'. 
+    If the user wants to skip the question, respond with 'Yes'.`;
+    
+    
     const responseDirectReply = await chatGPT.ask(promptDirectReply);
+    console.log("Response Direct Reply:", responseDirectReply);
     return{responseDirectReply};
 }
 
@@ -43,20 +55,31 @@ async function aRgenerateResponse(req, res) {
     const responseDirectReply = await responseDirectReplyPromise;
 
     if (responseDirectReply.responseDirectReply.toLowerCase() === 'yes') {
-        const promptEngagingReply = `Reviewing the user's response: '${userResponse}',to the question: "${questionAsked}", Generate a response for an avid reader based on their answer . The response should be engaging and informative, recommending similar books or providing relevant information.(use less than 30 words) Use a friendly tone and tailor the response to the user's input.`;
+        const promptEngagingReply = `Reviewing the user's response: '${userResponse}', to the question: "${questionAsked}", Generate a response to the user based on their answer. The response should be engaging and should not include any follow-up questions. (use less than 30 words) Use a friendly tone and tailor the response to the user's input generate only a response, do not ask any follow-up question from the user , do not give any recommendations.This is a continuing conversation, so generate response likewise`;
         const response = await chatGPT.ask(promptEngagingReply);
-        nextQuestionIndex++;
-        if (nextQuestionIndex < staticQuestions.length - 1) {
-            questionToAsk = staticQuestions[nextQuestionIndex];
-        }
-
+    
+            // Code for generating response
+        nextQuestionIndex++; // Increment the question index
+        
+            // Check if there are more questions to ask
+        if (nextQuestionIndex < staticQuestions.length) {
+                questionToAsk = staticQuestions[nextQuestionIndex]; // Update the question to ask
+         }
+         console.log(questionToAsk);
+        
+            // Respond with the next question along with the chatbot's response
         res.json({
-            question: questionToAsk,
-            response,
-            questionIndex: nextQuestionIndex
+                response: response,
+                question: questionToAsk, // Include the next question
+                questionIndex: nextQuestionIndex
         });
-    } else {
-        const promptSubquestionCheck = `Assume you are a helpful bot and respond ,Reviewing the user's response: '${userResponse}', to the question: '${questionAsked}'. If the user's response contains any subquestions or clarifications related to the topic of the question, or anything that is not a direct answer to the question asked, generate an answer/question/response to users response. If the user's question does not match the asked question, generate a message saying that the question asked is not related to the question.(use less than 20 words)`;
+       
+            
+    }else {
+        const promptSubquestionCheck = `Reviewing the user's response: '${userResponse}' to the question: '${questionAsked}'. 
+        If the user's response includes any subquestions rabout the question asked : ' ${questionAsked}' , provide helpful response. 
+        If a subquestion isn't related to '${questionAsked}', or if user response is not understandable provide a response saying answer is not matcing with the question in an engaging way,  but dont include any follow-up questions. (Use less than 20 words)`;
+        
         const response = await chatGPT.ask(promptSubquestionCheck);
         res.json({
             question: questionToAsk,
@@ -66,7 +89,29 @@ async function aRgenerateResponse(req, res) {
     }
 }
 
+async function generateRecommendation(req, res) {
+    const { messages } = req.body;
+    
+    // Collect all user messages (questions and answers)
+    const prompt = messages.map(msg => msg.text).join('\n');
+    
+    try {
+        // Send the prompt to the GPT model to generate a recommendation
+        const promptRecommendation= `These are the answers given by avid readers to a book recommendation system '${prompt}', analyze user answers and give concise book recommendations with titles, authors, and very brief descriptions. Limit recommendations to a maximum of 4 books. `;
+        const recommendation = await chatGPT.ask(promptRecommendation);
+        
+        // Return the recommendation to the frontend
+        res.json({ recommendation });
+    } catch (error) {
+        console.error('Error generating recommendation:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
+
 module.exports = {
-    aRstartConversation,
-    aRgenerateResponse
+    startConversation,
+    generateResponse,
+    generateRecommendation
+
 };
