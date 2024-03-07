@@ -18,17 +18,14 @@ body, h1, h2, h3, p {
 .grid {
     display: grid;
     grid-template-columns: 20% 60% 20%; /* Three columns with the middle column taking up more space */
-    gap: 4px; /* Small gap between columns */
-    background-color: #1e293b; /* Teal 50 */
+    background-color: #fefeff; /* Teal 50 */
 }
 
 /* Content pane */
 .content-pane {
-    padding: 16px;
-    background-color: #f8fafc ; /* Off-white background color */
+    padding: 3%;
+    background-color: #f9f9f9 ; /* Off-white background color */
     color: #333; /* Dark gray text color */
-    margin: 2%; /* Remove any default margin */
-    border-radius: 10px;
     overflow-y: auto; /* Add a vertical scrollbar when content overflows */
     max-height: 100vh; /* Limit the height of the content pane to the viewport height */
 }
@@ -36,12 +33,27 @@ body, h1, h2, h3, p {
 /* Left and right bars */
 .LeftBar, .RightBar {
     padding: 16px;
-    margin: 2%; /* Remove any default margin */
-    border-radius: 10px;
 }
 
 .left-bar-container {
-  margin:2%;
-  border-radius: 10px; /* Add border radius */
+ /* Add border radius */
   overflow: hidden; /* Ensure content inside does not overflow */
+  max-height: 100vh; /* Limit the height of the content pane to the viewport height */
+  background-color: #fefeff; /* Teal 50 */
+  
+}
+.left-bar-container {
+    /* Add border radius */
+     overflow: hidden; /* Ensure content inside does not overflow */
+     max-height: 100vh; /* Limit the height of the content pane to the viewport height */
+     background-color: #fefeff; /* Teal 50 */
+     
+   }
+
+.right-bar-container {
+    /* Add border radius */
+     overflow: hidden; /* Ensure content inside does not overflow */
+     max-height: 100vh; /* Limit the height of the content pane to the viewport height */
+     background-color: #fefeff; /* Teal 50 */
+     
 }

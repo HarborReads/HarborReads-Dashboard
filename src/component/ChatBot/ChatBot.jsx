@@ -1,9 +1,9 @@
-import React, {useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import ChatBar from './ChatBar';
 import InitialContent from './InitialContent';
 import ChatMessages from './ChatMessages';
 
-function ChatBot(props) {
+function ChatBot({ userName }) {
   const [messages, setMessages] = useState([]);
   const [botTyping, setBotTyping] = useState(false);
   const [showInitialContent, setShowInitialContent] = useState(true);
@@ -29,9 +29,9 @@ function ChatBot(props) {
     console.log(messages); // FOR DEBUGGING
 
     // Send a POST request for the first message
-    if (messages.length === 0) {
+    if (messages.length === 0 && chatType !== null) {
       try {
-        const res = await fetch('http://localhost:3001/chat/avidReadersChat/startConversation', {
+        const res = await fetch(`http://localhost:3001/chat/${chatType}/startConversation`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -50,7 +50,7 @@ function ChatBot(props) {
     } else {
       // Send a POST request for each subsequent message
       try {
-        const res = await fetch('http://localhost:3001/chat/avidReadersChat/generateResponse', {
+        const res = await fetch(`http://localhost:3001/chat/${chatType}/generateResponse`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -66,6 +66,7 @@ function ChatBot(props) {
         const appendingQuestion=data.question;
         const queIndex=data.questionIndex;
         setQuestion(data.question);
+        setQuestion(data.question); //either question to ask or previous que
         setBotResponse(response); // Update the bot's message with the response from the backend
         setQuestionIndex(data.questionIndex);
         const demoResponse = response + appendingQuestion;
@@ -106,6 +107,7 @@ function ChatBot(props) {
     // Update messages with the current state
     setMessages(prevMessages => [...prevMessages, botMessage]);
     console.log(messages);
+
     setBotTyping(false);
     // Hide initial content after the first interaction
     setShowInitialContent(false);
@@ -138,7 +140,7 @@ function ChatBot(props) {
 
   return (
     <div className='h-full flex flex-col'>
-      {showInitialContent && <InitialContent user={props.user} setChatType={setChatType} />}
+      {showInitialContent && <InitialContent userName={userName} setChatType={setChatType} updateChat={updateChat} />}
       <ChatMessages messages={messages} botTyping={botTyping} />
       <ChatBar updateChat={updateChat} />
     </div>
