@@ -20,14 +20,20 @@ class openaiConnection {
             });
             return response.data.choices[0].message.content;
         } catch (error) {
-            throw new Error(`Error communicating with OpenAI API: ${error.message}`);
+            if (error.response && error.response.status === 401) {
+                throw new Error(`Error communicating with OpenAI API: Unauthorized. Check your API key.`);
+            } else if (error.response && error.response.status === 429) {
+                throw new Error(`Error communicating with OpenAI API: Rate Limit Exceeded. Reduce the rate of requests.`);
+            } else {
+                throw new Error(`Error communicating with OpenAI API: ${error.message}`);
+            }
         }
     }
 
     async askWithBackoff(prompt, maxRetries = 3, retryDelay = 1000) {
         for (let i = 0; i < maxRetries; i++) {
             try {
-                const response = await openaiConnection.ask(prompt);
+                const response = await this.ask(prompt); // Change this line
                 return response;
             } catch (error) {
                 if (error.response && error.response.status === 429) {
@@ -41,6 +47,7 @@ class openaiConnection {
         }
         throw new Error("Error: Max retries exceeded.");
     }
+    
 }
 
 module.exports = openaiConnection;
