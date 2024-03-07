@@ -63,10 +63,20 @@ function ChatBot(props) {
         });
         const data = await res.json();
         const response = data.response;
+        const appendingQuestion=data.question;
+        const queIndex=data.questionIndex;
         setQuestion(data.question);
         setBotResponse(response); // Update the bot's message with the response from the backend
         setQuestionIndex(data.questionIndex);
-        setBotResponseAndUpdateMessages(response); 
+        const demoResponse = response + appendingQuestion;
+        console.log("Demo response:", demoResponse);
+        setBotResponseAndUpdateMessages(demoResponse);
+
+        if (queIndex === 9) {
+          console.log("rec reached");
+          // Fetch recommendation if all questions have been answered
+          fetchRecommendation();
+        }
         
       } catch (error) {
         console.error('Error sending request:', error);
@@ -78,15 +88,47 @@ function ChatBot(props) {
   const setBotResponseAndUpdateMessages = (response) => {
     const botMessage = {
       text: response,
-      from: 'bot'
+      from: 'bot',
     };
+    
+    
+    // const setBotResponseAndUpdateMessages = (response, appendingQuestion) => {
+    //   const botMessageResponse = {
+    //     text: response,
+    //     from: 'bot',
+    //   };
+    
+    //   const botMessageQuestion = {
+    //     text: appendingQuestion,
+    //     from: 'bot',
+    //   };
 
     // Update messages with the current state
     setMessages(prevMessages => [...prevMessages, botMessage]);
-console.log(messages);
+    console.log(messages);
     setBotTyping(false);
     // Hide initial content after the first interaction
     setShowInitialContent(false);
+  };
+
+  const fetchRecommendation = async () => {
+    try {
+      const recommendationRes = await fetch('http://localhost:3001/chat/avidReadersChat/generateRecommendation', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          messages: messages // Pass all stored messages
+        })
+      });
+      const recommendationData = await recommendationRes.json();
+      // Handle the recommendation data
+      console.log("Recommendation:", recommendationData.recommendation);
+      setBotResponseAndUpdateMessages(recommendationData.recommendation);
+    } catch (error) {
+      console.error('Error fetching recommendation:', error);
+    }
   };
 
   useEffect(() => {
