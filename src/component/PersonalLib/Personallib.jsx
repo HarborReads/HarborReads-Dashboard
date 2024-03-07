@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import data from '../search/TemplateData.json';
+import BookInfo from './bookContainers';
 
 function Personallib() {
   const [shelves, setShelves] = useState([]);
   const [shelfName, setShelfName] = useState('');
-  const [selectedFilter, setSelectedFilter] = useState('All'); // Default value for the dropdown
+  const [selectedFilter, setSelectedFilter] = useState('All');
+  const [showMenuIndex, setShowMenuIndex] = useState(-1);
 
-  // Load shelves from local storage on component mount or page reload
   useEffect(() => {
     const savedShelves = localStorage.getItem('shelves');
     if (savedShelves) {
@@ -18,17 +19,29 @@ function Personallib() {
     if (shelfName.trim() !== '') {
       const newShelves = [...shelves, { name: shelfName, books: [] }];
       setShelves(newShelves);
-      // Update local storage with the new shelves data
       localStorage.setItem('shelves', JSON.stringify(newShelves));
-      setShelfName(''); // Clear the input field
+      setShelfName('');
     }
   };
 
   const handleRemoveShelf = (index) => {
     const newShelves = shelves.filter((shelf, i) => i !== index);
     setShelves(newShelves);
-    // Update local storage with the modified shelves
     localStorage.setItem('shelves', JSON.stringify(newShelves));
+  };
+
+  const handleRemoveBook = (shelfIndex, bookToRemove) => {
+    const updatedShelves = shelves.map((shelf, index) => {
+      if (index === shelfIndex) {
+        return {
+          ...shelf,
+          books: shelf.books.filter(book => book !== bookToRemove)
+        };
+      }
+      return shelf;
+    });
+    setShelves(updatedShelves);
+    localStorage.setItem('shelves', JSON.stringify(updatedShelves));
   };
 
   const filterBooksByShelf = (shelfName) => {
@@ -51,26 +64,26 @@ function Personallib() {
   };
 
   return (
-    <div className="min-h-screen">
-      <div className="flex flex-col items-start">
-        <div className="my-3">
-          <h1 className='text-3xl md:text-5xl font-medium text-black'>Personal Library</h1>
-        </div>
-        <div className="mt-5 flex">
+    <div>
+      <div className="mb-4">
+        <h1 className='text-2xl md:text-4xl font-medium text-black mb-8'>Personal Library</h1>
+      </div>
+      <div className="bg-very-light-maroon rounded-lg shadow-md p-4  items-center">
+        <div className="flex items-center">
           <input
-            className='text-black bg-gray-200 rounded-2xl mr-2 pl-2'
-            placeholder='Add a Shelf'
+            className='text-black bg-gray-200 rounded-2xl mr-2 pl-2 py-1 w-1/3'
+            placeholder='Enter your new shelf name'
             value={shelfName}
             onChange={(e) => setShelfName(e.target.value)}
           />
           <button
-            className='text-black text-base bg-blue-500 rounded-xl w-16 mr-2'
+            className='text-white bg-brown rounded w-45 ml-2 mr-2 px-2 py-1 mr-2'// Adjust the margin-right value to your preference
             onClick={handleAddShelf}
-          >
-            Add
+          > 
+            Add Shelf
           </button>
           <select
-            className='text-black bg-gray-200 rounded-2xl pl-2 pr-4'
+            className='text-black bg-gray-200 rounded-2xl pl-2 pr-4 py-1 ml-2'
             value={selectedFilter}
             onChange={handleFilterChange}
           >
@@ -80,24 +93,26 @@ function Personallib() {
             <option value="Want to Read">Want to Read</option>
           </select>
         </div>
-        <div>
-          {shelves.map((shelf, index) => (
-            <div key={index} className="mt-5">
-              <h2 className="text-xl font-semibold">{shelf.name}</h2>
-              <button
-                className="text-sm bg-red-500 text-white px-2 py-1 rounded-md mt-1"
-                onClick={() => handleRemoveShelf(index)}
-              >
-                Remove
-              </button>
-              <div className="flex flex-wrap">
-                {filterBooksByShelf(shelf.name).map((book, bookIndex) => (
-                  <div key={bookIndex} className="border border-gray-300 rounded-lg p-2 m-2">
-                    <img src={book.image} alt={book.title} className="w-24 h-32" />
-                    <p className="text-sm">{book.title}</p>
-                    {/* You can add more details here */}
-                  </div>
-                ))}
+        <div className="mt-4">
+          {shelves.map((shelf, shelfIndex) => (
+            <div key={shelfIndex} className="mb-4">
+              <div className="bg-nav-bg rounded-lg shadow-md p-4 mb-4">
+                <div className="flex justify-between items-center">
+                  <h2 className="text-2xl font-semibold">{shelf.name}</h2>
+                  <button
+                    className="text-sm bg-red-500 text-white px-2 py-1 rounded-md mb-2"
+                    onClick={() => handleRemoveShelf(shelfIndex)}
+                  >
+                    Remove Shelf
+                  </button>
+                </div>
+                <div className="flex overflow-x-auto">
+                  {filterBooksByShelf(shelf.name).map((book, bookIndex) => (
+                    <div key={bookIndex} className="flex items-center">
+                      <BookInfo book={book} onRemove={() => handleRemoveBook(shelfIndex, book)} />
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           ))}

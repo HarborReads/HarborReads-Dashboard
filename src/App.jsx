@@ -6,6 +6,7 @@ import SearchPage from './component/search/SearchPage';
 import ChatBot from './component/ChatBot/ChatBot';
 import RightBar from './component/RightBar/RightBar';
 import Dashboard from './component/DashBoard/DashBoard';
+import Personallib from './component/PersonalLib/Personallib';
 import BookPreview from './component/BookPreview';
 import ReadingInsights from './component/ReadingInsights';
 import Challenges from './component/Challenges';
@@ -130,6 +131,7 @@ const AuthenticatedRoutes = ({userName,currentSession}) => {
           <Route path="/chatbot" element={<ChatBot element={userName}/>} />
           <Route path="/bookpre" element={<BookPreview />} />
           <Route path="/edit-profile" element={<EditProfile currentSession={currentSession}/>} />
+          <Route path="/library" element={<Personallib />} />
           <Route path="/insights" element={<ReadingInsights/>}/>
            <Route path="/challenges" element={<Challenges/>}/>
           <Route path='/' element={<Dashboard userName={userName} setAuth={setAuth}/>} />
