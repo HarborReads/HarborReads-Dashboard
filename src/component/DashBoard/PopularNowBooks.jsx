@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import BookInforRate from './BookInforRate';
 
 function PopularBooksList() {
   const [popularBooks, setPopularBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoading(true);
@@ -30,6 +32,13 @@ function PopularBooksList() {
       });
   }, []); // Fetch data only once when the component mounts
 
+  
+
+  const handleBookClick = (bookId) => {
+        navigate(`/bookpre/${bookId}`);
+      };
+
+
   if (isLoading) {
     return <div className='text-center text-gray-500'>Loading...</div>;
   }
@@ -41,7 +50,7 @@ function PopularBooksList() {
       ) : (
         <div className="overflow-x-auto flex flex-nowrap">
           {popularBooks.map(book => (
-            <div key={book.id}>
+            <div key={book.bookId} onClick={() => handleBookClick(book.bookId)}>
               <BookInforRate book={book} />
             </div>
           ))}
