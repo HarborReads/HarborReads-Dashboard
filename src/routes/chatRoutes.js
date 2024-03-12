@@ -5,19 +5,18 @@ const {aRstartConversation,aRgenerateResponse,aRgenerateRecommendation} = requir
 const {nRstartConversation,nRgenerateResponse,nRgenerateRecommendation} = require('../controllers/chatController/newReadersChatController');
 const {bookChatStartConversation,bookChatGenerateResponse,bCgenerateRecommendation} = require('../controllers/chatController/bookChatController');
 
-
 router.post('/avidReadersChat/startConversation', aRstartConversation);
 router.post('/avidReadersChat/generateResponse', aRgenerateResponse);
 router.post('/avidReadersChat/generateRecommendation',aRgenerateRecommendation);
-
+//newreader routes
 
 router.post('/newReadersChat/startConversation', nRstartConversation);
 router.post('/newReadersChat/generateResponse', nRgenerateResponse);
 router.post('/avidReadersChat/generateRecommendation',nRgenerateRecommendation);
 
 
-
-
+router.post('/bookChat/startConversation', bookChatStartConversation);
+router.post('/bookChat/generateResponse', bookChatGenerateResponse);
 
 
 module.exports = router;
