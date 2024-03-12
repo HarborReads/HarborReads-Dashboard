@@ -9,7 +9,7 @@ const {bookChatStartConversation,bookChatGenerateResponse,bCgenerateRecommendati
 router.post('/avidReadersChat/startConversation', aRstartConversation);
 router.post('/avidReadersChat/generateResponse', aRgenerateResponse);
 router.post('/avidReadersChat/generateRecommendation',aRgenerateRecommendation);
-
+//newreader routes
 
 router.post('/newReadersChat/startConversation', nRstartConversation);
 router.post('/newReadersChat/generateResponse', nRgenerateResponse);
