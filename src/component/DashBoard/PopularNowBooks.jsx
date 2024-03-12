@@ -35,11 +35,11 @@ function PopularBooksList() {
   }
 
   return (
-    <div className="max-w-screen-xl mx-auto px-4">
+    <div className="max-w-screen-xl mx-auto md:px-0 ">
       {popularBooks.length === 0 ? (
         <div className="text-gray-500 text-center">No popular books found</div>
       ) : (
-        <div className="overflow-x-auto flex flex-nowrap">
+        <div className="overflow-x-auto flex flex-nowrap ">
           {popularBooks.map(book => (
             <div key={book.id}>
               <BookInforRate book={book} />
