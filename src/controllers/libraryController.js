@@ -192,3 +192,29 @@ exports.removeBookFromShelf = async (req, res) => {
         res.status(500).json({ error: 'Failed to remove book from shelf' });
     }
 };
+
+exports.changeStatus = async (req, res) => {
+  const { bookId, newState } = req.body;
+
+  try {
+      // Find the book by bookId
+      const book = await Book.findById(bookId);
+
+      if (!book) {
+          return res.status(404).json({ error: 'Book not found' });
+      }
+
+      // Update the book's status
+      book.state = newState;
+
+      // Save the updated book
+      await book.save();
+
+      // Return the updated book
+      res.json({ book });
+
+  } catch (error) {
+      console.error('Error changing status:', error);
+      res.status(500).json({ error: 'Failed to change status' });
+  }
+};
