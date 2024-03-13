@@ -23,7 +23,7 @@ const NavItem = ({ to, icon, text }) => {
   const isActive = location.pathname === to;
 
   return (
-    <li className='my-1'>
+    <li className='my-1 md:my-2'>
       <Link
         to={to}
         className={`flex items-center py-2 px-4 rounded-full ${
