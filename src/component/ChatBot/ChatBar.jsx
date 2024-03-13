@@ -16,7 +16,7 @@ function TypingBar({ updateChat }) {
               e.target.value = '';
             }
           }}
-          className="flex-grow text-md bg-slate-100 border-2 border-slate-300 focus:border-slate-500 rounded-lg pl-4 sm:pl-3 lg:pl-5 pr-4 sm:pr-3 lg:pr-5 pt-3 pb-3 focus:outline-none"        />
+          className="flex-grow text-md bg-slate-100 border-2 border-slate-300 focus:border-brown rounded-lg pl-4 sm:pl-3 lg:pl-5 pr-4 sm:pr-3 lg:pr-5 pt-3 pb-3 focus:outline-none"        />
         <div className="absolute right-2 items-center inset-y-0 hidden sm:flex">
           <SendIcon
             className="h-10 w-10 sm:h-10 sm:w-10 md:h-12 md:w-12 transition duration-200 ease-in-out text-slate-700 hover:text-slate-400"

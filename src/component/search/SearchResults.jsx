@@ -49,7 +49,7 @@ function SearchResults({ searchTerm }) {
 
   return (
     <div className="max-w-screen-xl mx-auto px-4">
-      <h2 className="text-2xl font-bold text-gray-700 mb-4 text-center">Search Results</h2>
+      <h2 className="text-2xl font-bold text-gray-700 mb-4 ml-4">Search Results</h2>
       {searchResults.length === 0 ? (
         <div className="text-gray-500 text-center">Enter a query on the search bar to find books</div>
       ) : (

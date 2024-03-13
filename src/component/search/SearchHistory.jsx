@@ -32,9 +32,9 @@ function SearchHistory() {
 
   return (
     <div className="max-w-screen-xl mx-auto px-4">
-      <h2 className="text-2xl font-bold text-gray-700 mb-4 text-center">Search History</h2>
+      <h2 className="text-2xl font-bold text-gray-700 mb-4 ml-4">Search History</h2>
       {searchHistory.length === 0 ? (
-        <div className="text-gray-500 text-center">No search history found</div>
+        <div className="text-gray-500 ml-4">No search history found</div>
       ) : (
         <div className="overflow-x-auto flex flex-nowrap">
           {searchHistory.map((val) => (

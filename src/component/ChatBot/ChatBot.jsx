@@ -139,7 +139,7 @@ function ChatBot({ userName }) {
   }, [messages]);
 
   return (
-    <div className='h-full flex flex-col'>
+    <div className='h-full flex flex-col border rounded-lg'>
       {showInitialContent && <InitialContent userName={userName} setChatType={setChatType} updateChat={updateChat} />}
       <ChatMessages messages={messages} botTyping={botTyping} />
       <ChatBar updateChat={updateChat} />
