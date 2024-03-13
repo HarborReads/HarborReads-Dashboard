@@ -10,6 +10,7 @@ import Personallib from './component/PersonalLib/Personallib';
 import BookPreview from './component/BookPreview';
 import ReadingInsights from './component/ReadingInsights';
 import Challenges from './component/Challenges';
+import  Quiz from './component/QuizData/QuizPage';
 import EditProfile from './component/EditProfile';
 import SignIn from './component/SignIn';
 import SignUp from './component/SignUp';
@@ -133,7 +134,8 @@ const AuthenticatedRoutes = ({userName,currentSession}) => {
           <Route path="/edit-profile" element={<EditProfile currentSession={currentSession}/>} />
           <Route path="/library" element={<Personallib currentSession={currentSession} />} />
           <Route path="/insights" element={<ReadingInsights/>}/>
-           <Route path="/challenges" element={<Challenges/>}/>
+          <Route path="/challenges" element={<Challenges/>}/>
+          <Route path="/quiz" element={<Quiz/>}/>
           <Route path='/' element={<Dashboard userName={userName} setAuth={setAuth}/>} />
         </Routes>
       </div>
