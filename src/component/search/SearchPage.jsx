@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
 import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';
@@ -9,13 +8,11 @@ function SearchPage() {
   const [searchTerm, setSearchTerm] = useState('');
 
   return (
-    <div className="border border-gray-300 rounded-md p-4">
-    <div className="flex justify-between items-center">
-      <div className="mt-9"> {/* Add margin-top to push the PromotionalBanner lower */}
-          <SearchPageText />
+    <div className="border border-gray-300 rounded-md p-4"  style={{ backgroundColor: '#f2f2f2' }}>
+      <div className="flex flex-col items-center">
+        <SearchPageText />
+        <SearchBar setSearchTerm={setSearchTerm} />
       </div>
-      <SearchBar setSearchTerm={setSearchTerm} />
-    </div>
       <br/>
       <SearchResults searchTerm={searchTerm} />
       <br/>

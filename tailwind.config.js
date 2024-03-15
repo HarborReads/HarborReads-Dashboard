@@ -28,7 +28,7 @@ module.exports = {
         'green': '#25541e',
         'navImg': '#c77e71',
         'custom-color': '#C48477',
-        'custom-color-2': '#EFEDEC',
+        'custom-color-2': '#e0dcd7',
         'custom-color-3': '#FFE7E2',
 
       },

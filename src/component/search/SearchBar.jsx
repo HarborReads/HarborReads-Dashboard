@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { FiSearch } from 'react-icons/fi'; // Import an icon from a library like React Icons
 
@@ -13,9 +11,9 @@ function SearchBar({ setSearchTerm }) {
   return (
     <div className='relative mt-5 mx-auto flex items-center'>
       {/* Search input */}
-      <div className='relative flex items-center'>
+      <div className='relative flex items-center mr-0 w-full sm:w-auto'>
         <input
-          className='input w-full sm:w-80 h-[40px] rounded-l-full pl-10 border border-slate-500'
+          className='input w-full sm:w-80 h-[40px] rounded-l-full pl-10 border border-brown'
           type='text'
           placeholder='Search for books'
           onChange={(event) => setSearchBar(event.target.value)}
@@ -26,7 +24,7 @@ function SearchBar({ setSearchTerm }) {
       </div>
       {/* Search button */}
       <button
-        className='bg-light-brown text-white rounded-r-full px-4 h-[40px] transition-colors duration-300 ease-in-out hover:bg-brown ml-0'
+        className='bg-light-brown text-white rounded-r-full px-4 h-[40px] sm:ml-0 mt-2 sm:mt-0 transition-colors duration-300 ease-in-out hover:bg-brown'
         onClick={handleSearchClick}
       >
         Search
