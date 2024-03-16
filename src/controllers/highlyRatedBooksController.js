@@ -31,11 +31,9 @@ async function getHighlyRatedBooks(req,res) {
   
     res.json(books) ;
   } catch (error) {
-    console.error('Error fetching highly rated books:', error);
     throw new Error('Failed to fetch highly rated books');
   }
 }
-
 module.exports = {
   getHighlyRatedBooks
 };
