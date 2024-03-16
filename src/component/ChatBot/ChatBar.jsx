@@ -7,7 +7,7 @@ function TypingBar({ updateChat }) {
       <div className="relative flex mb-3">
         <input
           type="text"
-          placeholder="Say something..."
+          placeholder="Click on a prompt to get started:)"
           autoComplete="off"
           autoFocus={true}
           onKeyDown={(e) => {

@@ -43,6 +43,7 @@ const SignIn = ({ handleSignIn, signinMsg, setAuth }) => {
           <button
             type="submit"
             className="bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300 text-white font-medium rounded-lg text-sm md:text-base px-5 py-3 w-full"
+            style={{ backgroundColor: "#22c55e" }}
           >
             Sign In
           </button>
