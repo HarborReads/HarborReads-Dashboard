@@ -1,11 +1,11 @@
 const axios = require('axios');
 const { getHighlyRatedBooks } = require('../src/controllers/highlyRatedBooksController');
 
-// Mocking the axios.get method to simulate the API response
-jest.mock('axios');
+// Mocking the axios.get method to simulate the API response 
+jest.mock('axios');  // java script libarray to send request to api , used during backend formation 
 
-describe('Highly Rated Books Controller', () => {
-  // Test case for successful retrieval of highly rated books
+describe('Highly Rated Books Controller', () => {             // describe block defines a test suite for the highly rated books controller
+  // Test case for successful retrieval of highly rated books test case 1 
   it('should fetch highly rated books', async () => {
     // Mocked response data from the Google Books API
     const responseData = {
@@ -63,7 +63,7 @@ describe('Highly Rated Books Controller', () => {
     ]);
   });
 
-  // Test case for handling errors
+  // Test case for handling errors  test case 2
   it('should throw an error if fetching highly rated books fails', async () => {
     // Mocking the axios.get method to simulate an error
     axios.get.mockRejectedValue(new Error('Failed to fetch highly rated books'));
