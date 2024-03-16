@@ -1,4 +1,5 @@
 import React from 'react';
+import LoadingBars from '../ProgressBar/loadinglights';
 
 function ChatMessages({ messages, botTyping }) {
   return (
@@ -16,7 +17,9 @@ function ChatMessages({ messages, botTyping }) {
       {botTyping && (
         <div className="flex items-end">
           <div className="flex flex-col space-y-2 text-md leading-tight mx-2 order-2 items-start">
-            <div><img src="https://support.signal.org/hc/article_attachments/360016877511/typing-animation-3x.gif" alt="..." className="w-16 ml-6" /></div>
+            <div>
+              {/*<img src="https://support.signal.org/hc/article_attachments/360016877511/typing-animation-3x.gif"
+               alt="..." className="w-16 ml-6" />*/}<LoadingBars/> </div>
           </div>
         </div>
       )}

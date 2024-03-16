@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import BookInfo from '../Reusables/BookInfo'; 
+import LoadingBars from '../ProgressBar/loadinglights'
 
 function SearchHistory() {
   const [searchHistory, setSearchHistory] = useState([]);
@@ -34,7 +35,8 @@ function SearchHistory() {
     <div className="max-w-screen-xl mx-auto px-4">
       <h2 className="text-xl font-bold text-gray-700 mb-4 ml-4">Search History</h2>
       {searchHistory.length === 0 ? (
-        <div className="text-gray-500 ml-4">No search history found</div>
+        // <div className="text-gray-500 ml-4">No search history found</div>
+        <LoadingBars/>
       ) : (
         <div className="overflow-x-auto flex flex-nowrap">
           {searchHistory.map((val) => (
