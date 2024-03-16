@@ -76,7 +76,7 @@ describe('Highly Rated Books Controller', () => {             // describe block 
     // Call the controller function
     await expect(getHighlyRatedBooks({}, res)).rejects.toThrow('Failed to fetch highly rated books');
 
-    // Check if the response JSON method is not called
+    // this statement Checks if the response JSON method is not called
     expect(res.json).not.toHaveBeenCalled();
   });
 });
