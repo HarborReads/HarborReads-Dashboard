@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BookInforRate from './BookInforRate';
+import LoadingBars from '../ProgressBar/loadinglights'
 
 function PopularBooksList() {
   const [popularBooks, setPopularBooks] = useState([]);
@@ -40,13 +41,15 @@ function PopularBooksList() {
 
 
   if (isLoading) {
-    return <div className='text-center text-gray-500'>Loading...</div>;
+    //return <div className='text-center text-gray-500'>Loading...</div>;
+    <LoadingBars/>
   }
 
   return (
     <div className="max-w-screen-xl mx-auto md:px-0 ">
       {popularBooks.length === 0 ? (
-        <div className="text-gray-500 text-center">No popular books found</div>
+        //<div className="text-gray-500 text-center">No popular books found</div>
+        <LoadingBars/>
       ) : (
         <div className="overflow-x-auto flex flex-nowrap ">
           {popularBooks.map(book => (
