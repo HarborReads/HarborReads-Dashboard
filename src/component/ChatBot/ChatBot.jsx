@@ -169,8 +169,13 @@ function ChatBot({ userName }) {
   }, [messages]);
 
   return (
-    <div className='h-full flex flex-col border rounded-lg'>
+
+    <div className='h-full flex flex-col border border-gray-300 rounded-lg  ' style={{ backgroundColor: '#f2f2f2' }}>
+      
+
+    
       {showInitialContent && <InitialContent userName={userName} updateChatType={updateChatType} updateChat={updateChat} />}
+
       <ChatMessages messages={messages} botTyping={botTyping} />
       <ChatBar updateChat={updateChat} />
     </div>

@@ -37,23 +37,20 @@ const CircularProgress = ({ percentage, color }) => {
 
 const ReadingInsights = () => {
   return (
-    <div className="reading-insights-container h-100% bg-very-light-maroon  rounded-[20px] mx-auto relative" style={{ marginBottom: "10px", textAlign: "center", overflow: "hidden" }}>
+    <div className="reading-insights-container  bg-very-light-maroon  rounded-[20px] mx-auto relative" style={{ marginBottom: "10px", textAlign: "center", overflow: "hidden" }}>
       <Link to="/">
         <button className="absolute left-3 top-3 bg-white text-black px-3 py-1 rounded-full">&lt;</button>
       </Link>
-        
-      <h1 className="topic-title text-3xl font-serif text-black mb-4 mt-6" style={{ height: "50px" }}>Reading Insights</h1>
-      <h2 className="topic-title text-4xl font-bold font-serif  text-brown mb-4 mt-6" style={{ transition: "transform 0.5s ease", height: "50px" }}>🎯 Set Goals, Track Progress</h2>
+      <h2 className="topic-title text-4xl font-semi-bold   text-black mb-4 mt-6" style={{ transition: "transform 0.5s ease", height: "50px" }}>🎯 Set Goals, Track Progress</h2>
       <p className="interactive-text text-lg font-bold font-serif  text-black mb-2">Ready to take charge of your reading journey?</p>
       <div style={{ width: "80%", margin: "0 auto" }}>
-        <p className="mb-4 font-serif ">
-          Trust us as your guide leading each chapter to fulfill your reading dreams.
+        <p className="mb-4 mt-8 font-serif ">
+        Set reading goals, test your knowledge, and embark on a journey of literary discovery.
         </p>
-        <p className="mb-4 font-serif ">Join us on a journey of endless wonder and discovery!</p>
       </div>
       <div className="button-container mb-6">
         <Link to="/challenges">
-          <button className="section-button text-l font-medium text-white bg-brown hover:bg-C4A484 px-8 py-4 rounded-[25px] mr-4">Set Challenges</button>
+          <button className="section-button text-l font-medium text-white bg-brown hover:bg-C4A484 px-8 py-4 rounded-[25px] mr-4 mt-20">Set Challenges</button>
         </Link>
         <Link to="/quiz">
           <button className="section-button text-l font-medium text-white bg-brown hover:bg-C4A484 px-8 py-4 rounded-[25px]">Quiz</button>
