@@ -14,6 +14,29 @@ function ChatBot({ userName }) {
   const [questionIndex, setQuestionIndex] = useState(0);
   const chatRef = useRef(null);
 
+
+ const updateChatType=async(value)=>{
+    setChatType(value);
+    console.log("settingg:"+value);
+    console.log("settingg:"+chatType);
+  }
+
+  const getMessageText = () => {
+    // Return the appropriate message text based on chatType
+    switch (chatType) {
+      case 'newReadersChat':
+        return "Hi!, I'm a new reader. Help me find a book.";
+      case 'avidReadersChat':
+        return "Hi!, I'm an avid reader. Help me find a book.";
+      case 'bookChat':
+        return "Hi!, let's have a chat about books.";
+      default:
+        return '';
+    }
+  };
+
+  //******************************************************************************* */
+
   const updateChat = async (messageText) => {
     setBotTyping(true);
     if (messageText.trim() === "") return;
@@ -86,6 +109,12 @@ function ChatBot({ userName }) {
     }
   };
 
+  // useEffect(() => {
+  //   // Call updateChat after chatType is updated
+  //   const messageText = getMessageText(); // Get the appropriate message text based on chatType
+  //   updateChat(messageText);
+  // }, [chatType]); // Watch for changes in chatType or updateChat
+
   const setBotResponseAndUpdateMessages = (response) => {
     const botMessage = {
       text: response,
@@ -105,6 +134,7 @@ function ChatBot({ userName }) {
     //   };
 
     // Update messages with the current state
+  
     setMessages(prevMessages => [...prevMessages, botMessage]);
     console.log(messages);
 
@@ -139,8 +169,13 @@ function ChatBot({ userName }) {
   }, [messages]);
 
   return (
+
     <div className='h-full flex flex-col border border-gray-300 rounded-lg  ' style={{ backgroundColor: '#f2f2f2' }}>
-      {showInitialContent && <InitialContent userName={userName} setChatType={setChatType} updateChat={updateChat} />}
+      
+
+    
+      {showInitialContent && <InitialContent userName={userName} updateChatType={updateChatType} updateChat={updateChat} />}
+
       <ChatMessages messages={messages} botTyping={botTyping} />
       <ChatBar updateChat={updateChat} />
     </div>

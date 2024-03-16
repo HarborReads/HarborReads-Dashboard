@@ -3,8 +3,37 @@ import SendIcon from '@mui/icons-material/PresentToAll';
 import './ChatBot.css';
 import './initialContent.css'
 
-function InitialContent({ userName, setChatType }) {
+function InitialContent({userName,updateChatType,updateChat}) {
   const [buttonsVisible, setButtonsVisible] = useState(false);
+  const [currentChatType,setCurrentChatType]=useState('');
+  const handleButtonClick = (value,messageText) => {
+    updateChatType(value);
+    setCurrentChatType(value);
+  };
+
+  const handleInitialMessage=()=>{
+    const messageText = getMessageText(); // Get the appropriate message text based on chatType
+    updateChat(messageText);
+  }
+
+  useEffect(()=>{
+    handleInitialMessage();
+  },[currentChatType]);
+
+  const getMessageText = () => {
+    // Return the appropriate message text based on chatType
+    switch (currentChatType) {
+      case 'newReadersChat':
+        return "Hi!, I'm a new reader. Help me find a book.";
+      case 'avidReadersChat':
+        return "Hi!, I'm an avid reader. Help me find a book.";
+      case 'bookChat':
+        return "Hi!, let's have a chat about books.";
+      default:
+        return '';
+    }
+  };
+
 
   useEffect(() => {
     // Trigger button animations sequentially after a slight delay
@@ -20,19 +49,13 @@ function InitialContent({ userName, setChatType }) {
     };
   }, []);
 
-  const handleButtonClick = (value) => {
-    setChatType(value);
-  };
 
   return (
     <div className="flex flex-col justify-center items-center h-full  animate-fadeI">
       <div className="p-3 text-center">
       <h1 className="text-3xl md:text-5xl font-bold text-black">
-        Hello, Mindula{' '}
-        <span className="text-blue-500 to-red" style={{ animation: 'changeColor 5s infinite' }}>
-          {userName}
-        </span>
-        !{' '}
+        Hello 
+          {userName} !
         <span role="img" aria-label="Waving emoji" style={{ display: 'inline-block', animation: 'wave 0.5s linear  forwards' }}>👋</span>
       </h1>
         <p className="text-2xl md:text-4xl font-bold text-brown-700">How can I help you today? <span role="img" aria-label="Thinking emoji">🤔</span></p>
@@ -86,6 +109,7 @@ function InitialContent({ userName, setChatType }) {
             handleButtonClick('bookChat');
           }}
         >
+
           Interested in chatting about books?
           <SendIcon className="arrow" />
           <span className="click-to-send">Click to send</span>
