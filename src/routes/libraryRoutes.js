@@ -9,6 +9,7 @@ router.post('/addShelf',libraryController.addShelf);
 router.post('/removeShelf',libraryController.removeShelf);
 router.post('/addBookToShelf',libraryController.addBookToShelf);
 router.post('/removeBookFromShelf',libraryController.removeBookFromShelf);
+router.post('/changeStatus',libraryController.changeStatus);
 router.get('/book/:bookId', async (req, res) => {
     try {
       const book = await Book.findById(req.params.bookId);
