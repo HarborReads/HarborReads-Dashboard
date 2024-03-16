@@ -54,8 +54,7 @@ function InitialContent({userName,updateChatType,updateChat}) {
     <div className="flex flex-col justify-center items-center h-full  animate-fadeI">
       <div className="p-3 text-center">
       <h1 className="text-3xl md:text-5xl font-bold text-black">
-        Hello 
-          {userName} !
+        Hello,{' '+userName} !
         <span role="img" aria-label="Waving emoji" style={{ display: 'inline-block', animation: 'wave 0.5s linear  forwards' }}>👋</span>
       </h1>
         <p className="text-2xl md:text-4xl font-bold text-brown-700">How can I help you today? <span role="img" aria-label="Thinking emoji">🤔</span></p>
