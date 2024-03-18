@@ -51,7 +51,7 @@ function BookInfo({ bookId, shelf, onUpdateState, userId, setShelves }) {
     })
       .then(response => response.json())
       .then(response => {
-        console.log('Book status updated:', response);
+        console.log('Book status updated:', response.state);
         setBookDetails(response);
       })
       .catch(error => console.error('Error changing book status:', error));

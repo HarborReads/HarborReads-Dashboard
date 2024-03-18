@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import BookInfo from '../Reusables/BookInfo';
 
 // eslint-disable-next-line react/prop-types
-function SearchResults({ searchTerm }) {
+function SearchResults({ searchTerm,currentSession }) {
   const [searchResults, setSearchResults] = useState([]);
-  const userId = "60f6a3b4f8d9a652fc2f2e87";
+  const userId = currentSession.user.id;
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 

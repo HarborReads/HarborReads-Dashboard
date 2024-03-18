@@ -4,7 +4,7 @@ import SearchResults from './SearchResults';
 import SearchHistory from './SearchHistory';
 import SearchPageText from './SearchPageText'; // Import the PromotionalBanner component
 
-function SearchPage() {
+function SearchPage({currentSession}) {
   const [searchTerm, setSearchTerm] = useState('');
 
   return (
@@ -14,9 +14,9 @@ function SearchPage() {
         <SearchBar setSearchTerm={setSearchTerm} />
       </div>
       <br/>
-      <SearchResults searchTerm={searchTerm} />
+      <SearchResults searchTerm={searchTerm} currentSession={currentSession}/>
       <br/>
-      <SearchHistory />
+      <SearchHistory currentSession={currentSession}/>
     </div>
   );
 }

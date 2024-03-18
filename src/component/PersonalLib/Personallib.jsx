@@ -9,7 +9,7 @@ function Personallib({ currentSession }) {
 
   useEffect(() => {
     fetchUserShelves();
-  }, []);
+  }, [shelves]);
 
   const fetchUserShelves = () => {
     fetch(`http://localhost:3001/library/shelves`, {
@@ -22,8 +22,14 @@ function Personallib({ currentSession }) {
     .then(response => response.json())
     .then(response => {
       const { shelves, defaultShelf } = response;
-      const defaultShelfExists = shelves.some(shelf => shelf.name === defaultShelf.name);
-      const updatedShelves = defaultShelfExists ? [...shelves] : [...shelves, defaultShelf];
+      
+      // Check if the default shelf exists in the shelves array
+      const defaultShelfExists = defaultShelf && shelves.some(shelf => shelf._id === defaultShelf._id);
+
+      // If the default shelf is not deleted and not already in the shelves array, add it
+      const updatedShelves = defaultShelfExists && defaultShelf
+        ? shelves
+        : [...shelves, defaultShelf];
       setShelves(updatedShelves);
     })
       .catch(error => console.error('Error fetching user shelves:', error));
