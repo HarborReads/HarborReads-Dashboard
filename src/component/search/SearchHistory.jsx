@@ -1,11 +1,14 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import BookInfo from '../Reusables/BookInfo'; 
 import LoadingBars from '../ProgressBar/loadinglights'
 
-function SearchHistory() {
+function SearchHistory({currentSession}) {
   const [searchHistory, setSearchHistory] = useState([]);
-  const userId = "60f6a3b4f8d9a652fc2f2e87";
+  console.log(currentSession);
+  const userId = currentSession.user.id;
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch search history data from the server
@@ -31,6 +34,11 @@ function SearchHistory() {
       });
   }, []); // Empty dependency array to run effect only once
 
+  const handleBookClick = (bookId) => {
+    navigate(`/bookpre/${bookId}`);
+  };
+
+
   return (
     <div className="max-w-screen-xl mx-auto px-4">
       <h2 className="text-xl font-bold text-gray-700 mb-4 ml-4">Search History</h2>
@@ -40,7 +48,7 @@ function SearchHistory() {
       ) : (
         <div className="overflow-x-auto flex flex-nowrap">
           {searchHistory.map((val) => (
-            <div key={val.id}>
+             <div key={val.bookId} onClick={() => handleBookClick(val.bookId)}>
             <BookInfo book={val}/>
           </div>
           ))}

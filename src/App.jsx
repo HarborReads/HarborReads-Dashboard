@@ -128,7 +128,7 @@ const AuthenticatedRoutes = ({userName,currentSession}) => {
       <LeftBar className="LeftBar col-span-1 md:col-span-1" />
       <div className="content-pane col-span-3 md:col-span-3">
         <Routes>
-          <Route path="/search" element={<SearchPage />} />
+          <Route path="/search" element={<SearchPage currentSession={currentSession} />} />
           <Route path="/chatbot" element={<ChatBot userName={userName}/>} />
           <Route path="/bookpre/:bookId" element={<BookPreview currentSession={currentSession}/>} />
           <Route path="/edit-profile" element={<EditProfile currentSession={currentSession}/>} />
