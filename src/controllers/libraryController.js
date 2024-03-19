@@ -1,5 +1,7 @@
 const User = require('../models/User'); // Assuming your user model file is in the models directory
 const {Shelf,Book}= require('../models/Library');
+const ReadingSights = require('../models/readingInsights');
+
 
 
 exports.getUserShelves = async (req, res) => {
@@ -193,27 +195,47 @@ exports.removeBookFromShelf = async (req, res) => {
 };
 
 exports.changeStatus = async (req, res) => {
-  const { bookId, newState } = req.body;
-
-  try {
+    const { bookId, newState, username } = req.body;
+    console.log( bookId, newState, username);
+  
+    try {
       // Find the book by bookId
       const book = await Book.findById(bookId);
-
+  
       if (!book) {
-          return res.status(404).json({ error: 'Book not found' });
+        return res.status(404).json({ error: 'Book not found' });
       }
-
+  
       // Update the book's status
       book.state = newState;
-
+  
       // Save the updated book
       await book.save();
-
+  
+      // Find the ReadingSights document for the user
+      let readingSights = await ReadingSights.findOne({ username: username });
+  
+      // If the ReadingSights document doesn't exist, create a new one
+      if (!readingSights) {
+        readingSights = new ReadingSights({
+          username: username,
+          numberOfReadBooks: 1
+        });
+      } else {
+        // If the newState is 'read', increment the numberOfReadBooks
+        if (newState === 'read') {
+          readingSights.numberOfReadBooks++;
+        }
+      }
+  
+      // Save the ReadingSights document
+      await readingSights.save();
+  
       // Return the updated book
       res.json({ book });
-
-  } catch (error) {
+  
+    } catch (error) {
       console.error('Error changing status:', error);
       res.status(500).json({ error: 'Failed to change status' });
-  }
-};
+    }
+  };
