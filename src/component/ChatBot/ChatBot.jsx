@@ -96,10 +96,22 @@ function ChatBot({ userName }) {
         console.log("Demo response:", demoResponse);
         setBotResponseAndUpdateMessages(demoResponse);
 
-        if (queIndex === 9) {
-          console.log("rec reached");
-          // Fetch recommendation if all questions have been answered
-          fetchRecommendation();
+        if(chatType==="avidReadersChat"){
+          if (queIndex === 9) {
+            console.log("rec reached");
+            // Fetch recommendation if all questions have been answered
+            fetchRecommendation();
+          }
+        }
+
+        if(chatType==="newReadersChat"){
+          if (queIndex===7){
+            fetchNewReaderRecommendation();
+          }
+        }
+
+        if (chatType==="bookChat"){
+          
         }
         
       } catch (error) {
@@ -155,9 +167,34 @@ function ChatBot({ userName }) {
         })
       });
       const recommendationData = await recommendationRes.json();
+      console.log(recommendationData);
       // Handle the recommendation data
       console.log("Recommendation:", recommendationData.recommendation);
       setBotResponseAndUpdateMessages(recommendationData.recommendation);
+    } catch (error) {
+      console.error('Error fetching recommendation:', error);
+    }
+  };
+
+  const fetchNewReaderRecommendation=async ()=>{
+    try {
+      const userMessages = messages.filter(message => message.from === 'user');
+
+      const recommendationRes = await fetch('http://localhost:3001/rec/newUserRec', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          conversation: userMessages.map(message => message.text).join(' ') // Pass all stored messages
+        })
+      });
+      const recommendationData = await recommendationRes.json();
+      console.log(recommendationData);
+      // Handle the recommendation data
+      console.log("Recommendation:", recommendationData.bestMatchBook.title);
+      console.log("Recommendation:", recommendationData.bestMatchBook.description);
+      setBotResponseAndUpdateMessages(recommendationData.bestMatchBook.title+" :"+ recommendationData.bestMatchBook.description);
     } catch (error) {
       console.error('Error fetching recommendation:', error);
     }
