@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { FaMedal } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 
-function Challenges() {
+function Challenges({username}) {
   const [booksToRead, setBooksToRead] = useState("");
   const [readerCategory, setReaderCategory] = useState("");
   const [showQuotes, setShowQuotes] = useState(false);
+  
 
   const handleChange = (event) => {
     const numBooks = parseInt(event.target.value);
@@ -20,12 +21,31 @@ function Challenges() {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("Number of books to read:", booksToRead);
     console.log("Reader category:", readerCategory);
     setShowQuotes(true);
-    // Additional logic can be added here, such as sending data to a server
+  
+    try {
+      const response = await fetch('http://localhost:3001/insight/setWTRBooks', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username:username, wantTooReadBooks: booksToRead })
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to set number of want to read books');
+      }
+  
+      const data = await response.json();
+      console.log('Response:', data);
+    } catch (error) {
+      console.error('Error:', error.message);
+      // Handle error, show message, etc.
+    }
   };
 
   const getBoxShadowStyle = (category) => {

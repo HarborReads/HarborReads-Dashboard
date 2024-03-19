@@ -132,9 +132,9 @@ const AuthenticatedRoutes = ({userName,currentSession}) => {
           <Route path="/chatbot" element={<ChatBot userName={userName}/>} />
           <Route path="/bookpre/:bookId" element={<BookPreview currentSession={currentSession}/>} />
           <Route path="/edit-profile" element={<EditProfile currentSession={currentSession}/>} />
-          <Route path="/library" element={<Personallib currentSession={currentSession} />} />
-          <Route path="/insights" element={<ReadingInsights/>}/>
-          <Route path="/challenges" element={<Challenges/>}/>
+          <Route path="/library" element={<Personallib currentSession={currentSession} username={userName} />} />
+          <Route path="/insights" element={<ReadingInsights username={userName}/>}/>
+          <Route path="/challenges" element={<Challenges username={userName}/>} />
           <Route path="/quiz" element={<Quiz/>}/>
           <Route path='/' element={<Dashboard userName={userName} setAuth={setAuth}/>} />
         </Routes>

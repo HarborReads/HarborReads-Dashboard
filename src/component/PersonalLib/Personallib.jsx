@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import BookInfo from './bookContainers';
 import { FaTimes } from 'react-icons/fa'; // Import the "X" icon
-function Personallib({ currentSession }) {
+function Personallib({ currentSession,username }) {
   const [shelves, setShelves] = useState([]);
   const [shelfName, setShelfName] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('All');
@@ -181,6 +181,7 @@ function Personallib({ currentSession }) {
                       userId={userId}
                       setShelves={setShelves}
                       onUpdateState={(newState) => handleUpdateBookState(shelves.indexOf(activeShelf), book, newState)}
+                      username={username}
                     />
                   </div>
                 ))}

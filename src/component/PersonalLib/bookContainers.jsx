@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { FaTrash } from 'react-icons/fa'; 
 import { FaPencilAlt } from 'react-icons/fa'; // Import the pencil icon
 
-function BookInfo({ bookId, shelf, onUpdateState, userId, setShelves }) {
+function BookInfo({ bookId, shelf, onUpdateState, userId, setShelves,username}) {
   const [bookDetails, setBookDetails] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
-  const [selectedState, setSelectedState] = useState('');
+  const [selectedState, setSelectedState] = useState('wantToRead');
 
   useEffect(() => {
     fetch(`http://localhost:3001/library/book/${bookId}`)
@@ -41,7 +41,7 @@ function BookInfo({ bookId, shelf, onUpdateState, userId, setShelves }) {
   };
 
 
-  const handleChangeState = () => {
+  const handleChangeState = (value) => {
     setShowDropdown(false);
     onUpdateState(selectedState);
     fetch(`http://localhost:3001/library/changeStatus`, {
@@ -49,7 +49,7 @@ function BookInfo({ bookId, shelf, onUpdateState, userId, setShelves }) {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ bookId, newState: selectedState })
+      body: JSON.stringify({ bookId, newState:value , username })
     })
       .then(response => response.json())
       .then(response => {
@@ -77,14 +77,11 @@ function BookInfo({ bookId, shelf, onUpdateState, userId, setShelves }) {
         </button>
         {showDropdown && (
           <div className="mt-2">
-            <select value={selectedState} onChange={(e) => setSelectedState(e.target.value)}>
+            <select value={selectedState} onChange={(e) => handleChangeState(e.target.value) }>
               <option value="read">Read</option>
               <option value="reading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
             </select>
-            <button className="text-sm bg-blue-500 text-white px-2 py-1 rounded-md ml-2" onClick={handleChangeState}>
-              Save
-            </button>
           </div>
         )}
       </div>
