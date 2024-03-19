@@ -94,5 +94,5 @@ async function connectToMongoDB() {
     return similarity;
   }
   
-  module.exports = { getBestMatch };
+  module.exports = { getBestMatch,connectToMongoDB };
   
