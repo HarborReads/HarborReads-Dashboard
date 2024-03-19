@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const openaiConnection = require('./openAI'); 
 
 const app = express();
-const chatGPT = new openaiConnection("XXX");
+const chatGPT = new openaiConnection("");
 
 app.use(bodyParser.json());
 

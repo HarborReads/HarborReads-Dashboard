@@ -36,6 +36,7 @@ async function connectToMongoDB() {
   async function getBestMatch(req, res) {
     // User conversation from request body
     const userConversation = req.body.conversation;
+    console.log(userConversation);
   
     // Calculate TF-IDF vector for the user's conversation
     const userTfidf = new TfIdf();
@@ -66,6 +67,7 @@ async function connectToMongoDB() {
     // Get the index of the most similar book
     const bestMatchIndex = similarities.indexOf(Math.max(...similarities));
     const bestMatchBook = bookDescriptions[bestMatchIndex];
+    console.log(Math.max(...similarities));
     console.log("Best match index:", bestMatchIndex);
   
     res.json({ bestMatchBook });
@@ -89,7 +91,6 @@ async function connectToMongoDB() {
     }
   
     const similarity = dotProduct / (Math.sqrt(normVec1) * Math.sqrt(normVec2));
-    console.log("Cosine similarity:", similarity);
     return similarity;
   }
   

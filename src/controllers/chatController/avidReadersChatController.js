@@ -4,7 +4,7 @@ const openaiConnection = require('./openAI');
 
 const app = express();
 
-const chatGPT = new openaiConnection("xxx");
+const chatGPT = new openaiConnection("");
 
 
 app.use(bodyParser.json());

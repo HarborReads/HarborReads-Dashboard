@@ -13,7 +13,7 @@ exports.getUserShelves = async (req, res) => {
       if (!user) {
         return res.status(404).json({ error: 'User not found' });
       }
-      console.log({ shelves: user.shelves, defaultShelf:user.defaultShelf });
+      //console.log({ shelves: user.shelves, defaultShelf:user.defaultShelf });
 
       res.status(200).json({ shelves: user.shelves, defaultShelf:user.defaultShelf });
     } catch (error) {
@@ -62,7 +62,6 @@ exports.getUserShelves = async (req, res) => {
     await newShelf.save();
     await user.save();
 
-  
     // Push the new shelf object to the user's shelves
     user.shelves.push(newShelf);
   
@@ -151,7 +150,7 @@ exports.addBookToShelf = async (req, res) => {
 
 exports.removeBookFromShelf = async (req, res) => {
     const { userId, shelfIndex, bookToRemoveId } = req.body;
-    console.log( userId, shelfIndex, bookToRemoveId);
+    //console.log( userId, shelfIndex, bookToRemoveId);
 
     try {
         
@@ -183,7 +182,7 @@ exports.removeBookFromShelf = async (req, res) => {
         await user.populate('defaultShelf');
 
 
-        console.log(user.shelves,user.defaultShelf);
+        //console.log(user.shelves,user.defaultShelf);
         // Return the updated user object
         res.json({ shelves: user.shelves, defaultShelf:user.defaultShelf});
 
