@@ -12,6 +12,7 @@ const chatRouter=require('./src/routes/chatRoutes');
 const userNameRouter=require('./src/routes/userRoutes');
 const recRouter=require('./src/routes/recRoutes');
 const libraryRouter=require( './src/routes/libraryRoutes');
+const insightRouter=require('./src/routes/readingInsightRoutes');
 
 require('./db');
 
@@ -77,6 +78,9 @@ app.use('/profile', profileRouter);
 
 // Mounting libraryRouter at /library
 app.use('/library' ,libraryRouter);
+
+// Mounting insightRouter at /insight
+app.use('/insight' ,insightRouter);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
