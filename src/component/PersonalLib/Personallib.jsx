@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import BookInfo from './bookContainers';
-
+import { FaTimes } from 'react-icons/fa'; // Import the "X" icon
 function Personallib({ currentSession }) {
   const [shelves, setShelves] = useState([]);
   const [shelfName, setShelfName] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('All');
+  const [activeShelf, setActiveShelf] = useState(null);
   const userId = currentSession.user.id;
 
   useEffect(() => {
@@ -32,7 +33,7 @@ function Personallib({ currentSession }) {
         : [...shelves, defaultShelf];
       setShelves(updatedShelves);
     })
-      .catch(error => console.error('Error fetching user shelves:', error));
+    .catch(error => console.error('Error fetching user shelves:', error));
   };
 
   const handleAddShelf = () => {
@@ -44,12 +45,12 @@ function Personallib({ currentSession }) {
         },
         body: JSON.stringify({ userId, shelfName })
       })
-        .then(response => response.json())
-        .then(() => {
-          setShelves([...shelves, { name: shelfName, books: [] }]);
-          setShelfName('');
-        })
-        .catch(error => console.error('Error adding shelf:', error));
+      .then(response => response.json())
+      .then(() => {
+        setShelves([...shelves, { name: shelfName, books: [] }]);
+        setShelfName('');
+      })
+      .catch(error => console.error('Error adding shelf:', error));
     }
   };
 
@@ -62,14 +63,13 @@ function Personallib({ currentSession }) {
       },
       body: JSON.stringify({ userId, shelfId })
     })
-      .then(response => response.json())
-      .then(() => {
-        const newShelves = [...shelves];
-        newShelves.splice(index, 1);
-        console.log(newShelves);
-        setShelves(newShelves);
-      })
-      .catch(error => console.error('Error removing shelf:', error));
+    .then(response => response.json())
+    .then(() => {
+      const newShelves = [...shelves];
+      newShelves.splice(index, 1);
+      setShelves(newShelves);
+    })
+    .catch(error => console.error('Error removing shelf:', error));
   };
 
   const handleUpdateBookState = (shelfIndex, bookToUpdate, newState) => {
@@ -112,12 +112,17 @@ function Personallib({ currentSession }) {
     }
     return filteredBooks;
   };
+
+  const handleShelfClick = (shelf) => {
+    setActiveShelf(shelf);
+  };
+
   return (
     <div>
-      <div className="mb-4">
-        <h1 className='text-2xl md:text-4xl font-medium text-black mb-8'>Personal Library</h1>
+      <div className="mb-1">
+        <h1 className='text-3xl font-medium text-black mb-12'>Personal Library</h1>
       </div>
-      <div className="bg-very-light-maroon rounded-lg shadow-md p-4  items-center">
+      <div className="bg-white rounded-lg shadow-md p-4 items-center">
         <div className="flex items-center">
           <input
             className='text-black bg-gray-200 rounded-2xl mr-2 pl-2 py-1 w-1/3'
@@ -126,7 +131,7 @@ function Personallib({ currentSession }) {
             onChange={(e) => setShelfName(e.target.value)}
           />
           <button
-            className='text-white bg-brown rounded w-45 ml-2 mr-2 px-2 py-1 mr-2'
+            className='text-white bg-brown rounded w-45 ml-2 mr-2 px-2 py-1'
             onClick={handleAddShelf}
           > 
             Add Shelf
@@ -142,35 +147,46 @@ function Personallib({ currentSession }) {
             <option value="Want to Read">Want to Read</option>
           </select>
         </div>
-        <div className="mt-4">
+        <div className="mt-4 flex justify-center">
           {shelves.map((shelf, shelfIndex) => (
-            <div key={shelfIndex} className="mb-4">
-              <div className="bg-nav-bg rounded-lg shadow-md p-4 mb-4">
-                <div className="flex justify-between items-center">
-                  <h2 className="text-2xl font-semibold">{shelf && shelf.name}</h2>
-                  <button
-                    className="text-sm bg-red-500 text-white px-2 py-1 rounded-md mb-2"
-                    onClick={() => handleRemoveShelf(shelfIndex)}
-                  >
-                    Remove Shelf
-                  </button>
-                </div>
-                <div className="flex overflow-x-auto">
-                {filterBooksByShelf(shelf && shelf.name).map((book, bookIndex) => (
-                  <div key={bookIndex} className="flex items-center">
+            <div
+              key={shelfIndex}
+              className={`cursor-pointer rounded-lg p-2 mx-2 ${
+                activeShelf === shelf ? 'bg-brown text-white' : 'bg-gray-200 text-black'
+              }`}
+              onClick={() => handleShelfClick(shelf)}
+            >
+              {shelf.name}
+            </div>
+          ))}
+        </div>
+        <div className="mt-4 pr-1">
+          {activeShelf && (
+            <div className="bg-white rounded-lg shadow-md p-4 mb-4">
+              <div className="flex justify-between items-center">
+                <h2 className="text-2xl font-semibold mb-2">{activeShelf.name}</h2>
+                <button
+                  className="text-sm bg-red-500 text-white px-2 py-1 rounded-md mb-2"
+                  onClick={() => handleRemoveShelf(shelves.indexOf(activeShelf))}
+                >
+                 <FaTimes /> {/* Use the "X" icon */}
+                </button>
+              </div>
+              <div className="flex flex-wrap">
+                {filterBooksByShelf(activeShelf.name).map((book, bookIndex) => (
+                  <div key={bookIndex} className="w-full md:w-1/2 lg:w-1/2 xl:w-1/2 p-">
                     <BookInfo
                       bookId={book}
-                      shelf={shelf}
+                      shelf={activeShelf}
                       userId={userId}
                       setShelves={setShelves}
-                      onUpdateState={(newState) => handleUpdateBookState(shelf, book, newState)}
+                      onUpdateState={(newState) => handleUpdateBookState(shelves.indexOf(activeShelf), book, newState)}
                     />
                   </div>
                 ))}
               </div>
             </div>
-          </div>
-          ))}
+          )}
         </div>
       </div>
     </div>
