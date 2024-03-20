@@ -17,11 +17,16 @@ function BookInfo({ bookId, shelf, onUpdateState, userId, setShelves, username }
       });
   }, [bookId]);
 
-  const handleChangeStateClick = () => {
-    setShowDropdown(true);
+  const handleRemoveBook = () => {
+    handleRemoveBookFromShelf(shelf, bookId);
   };
 
-  const handleRemoveBookFromShelf = (shelfIndex, bookToRemoveId, setShelves) => {
+  const handleEditBook = () => {
+    setShowDropdown(!showDropdown); // Toggle dropdown visibility
+  };
+
+
+  const handleRemoveBookFromShelf = (shelfIndex, bookToRemoveId) => {
     fetch(`http://localhost:3001/library/removeBookFromShelf`, {
       method: 'POST',
       headers: {
@@ -40,7 +45,7 @@ function BookInfo({ bookId, shelf, onUpdateState, userId, setShelves, username }
 
   const handleChangeState = (value) => {
     setShowDropdown(false);
-    onUpdateState(selectedState);
+    onUpdateState(value);
     fetch(`http://localhost:3001/library/changeStatus`, {
       method: 'POST',
       headers: {
@@ -49,9 +54,11 @@ function BookInfo({ bookId, shelf, onUpdateState, userId, setShelves, username }
       body: JSON.stringify({ bookId, newState: value, username })
     })
       .then(response => response.json())
-      .then(response => {
-        console.log('Book status updated:', response.state);
-        setBookDetails(response);
+      .then(updatedDetails => {
+        setBookDetails(prevDetails => ({
+          ...prevDetails,
+          state: updatedDetails.state  // assuming the state is the key for status in the bookDetails object
+        }));
       })
       .catch(error => console.error('Error changing book status:', error));
   };
@@ -68,23 +75,22 @@ function BookInfo({ bookId, shelf, onUpdateState, userId, setShelves, username }
         {bookDetails?.publishedDate && <p className="text-gray-600 mb-2">Year: {new Date(bookDetails?.publishedDate).getFullYear()}</p>}
       </div>
       <div className="absolute bottom-2 right-2 flex space-x-2">
-        <button className="text-sm bg-red-500 text-white rounded-full p-1 sm:p-2 lg:p-3">
+        <button className="text-sm bg-red-500 text-white rounded-full p-1 sm:p-2 lg:p-3" onClick={handleRemoveBook}>
           <FaTrash />
         </button>
-        <button className="text-sm bg-blue-500 text-white rounded-full p-1 sm:p-2 lg:p-3">
+        <button className="text-sm bg-blue-500 text-white rounded-full p-1 sm:p-2 lg:p-3" onClick={handleEditBook}>
           <FaPencilAlt />
         </button>
+        {showDropdown && (
+          <div className="absolute left-0 mt-10">
+            <select value={selectedState} onChange={(e) => handleChangeState(e.target.value)}>
+              <option value="read">Read</option>
+              <option value="reading">Currently Reading</option>
+              <option value="wantToRead">Want to Read</option>
+            </select>
+          </div>
+        )}
       </div>
-
-      {showDropdown && (
-        <div className="mt-2">
-          <select value={selectedState} onChange={(e) => handleChangeState(e.target.value)}>
-            <option value="read">Read</option>
-            <option value="reading">Currently Reading</option>
-            <option value="wantToRead">Want to Read</option>
-          </select>
-        </div>
-      )}
     </div>
   );
 }

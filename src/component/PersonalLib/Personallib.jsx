@@ -131,10 +131,10 @@ function Personallib({ currentSession, username }) {
   return (
     <div className=" bg-gray-100 ">
       <div className="rounded-lg shadow-md p-4 items-center ">
-      <h1 className='text-3xl font-medium text-black mb-10'>
-         Welcome to Your Personal Library 📚
+      <h1 className='flex flex-col  text-3xl font-semibold text-black mb-10'>
+        {username}'s Personal Library 📚
       </h1>
-        <div className="flex justify-start">
+        <div className="flex justify-center">
           <input
             className='text-black bg-gray-200 rounded-xl mr-2 pl-2 py-1 w-1/3'
             placeholder='Enter your new shelf name'
