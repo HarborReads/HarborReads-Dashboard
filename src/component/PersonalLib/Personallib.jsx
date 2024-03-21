@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import BookInfo from './bookContainers';
 import { FaTimes } from 'react-icons/fa'; // Import the "X" icon
-function Personallib({ currentSession,username }) {
+import { FaPlus } from 'react-icons/fa'; // Import the plus icon
+
+function Personallib({ currentSession, username }) {
   const [shelves, setShelves] = useState([]);
   const [shelfName, setShelfName] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('All');
@@ -10,7 +12,7 @@ function Personallib({ currentSession,username }) {
 
   useEffect(() => {
     fetchUserShelves();
-  }, [shelves]);
+  }, []);
 
   const fetchUserShelves = () => {
     fetch(`http://localhost:3001/library/shelves`, {
@@ -23,18 +25,27 @@ function Personallib({ currentSession,username }) {
     .then(response => response.json())
     .then(response => {
       const { shelves, defaultShelf } = response;
-      
-      // Check if the default shelf exists in the shelves array
-      const defaultShelfExists = defaultShelf && shelves.some(shelf => shelf._id === defaultShelf._id);
+      let updatedShelves = shelves;
 
-      // If the default shelf is not deleted and not already in the shelves array, add it
-      const updatedShelves = defaultShelfExists && defaultShelf
-        ? shelves
-        : [...shelves, defaultShelf];
+      if (defaultShelf) {
+        setActiveShelf(defaultShelf);
+      }
+  
+      if (defaultShelf) {
+        // Check if the default shelf is already in the shelves array
+        const defaultShelfIndex = shelves.findIndex(shelf => shelf._id === defaultShelf._id);
+  
+        if (defaultShelfIndex === -1) {
+          // If not, add it to the beginning of the shelves array
+          updatedShelves = [defaultShelf, ...shelves];
+        }
+      }
+  
       setShelves(updatedShelves);
     })
     .catch(error => console.error('Error fetching user shelves:', error));
   };
+
 
   const handleAddShelf = () => {
     if (shelfName.trim() !== '') {
@@ -118,26 +129,26 @@ function Personallib({ currentSession,username }) {
   };
 
   return (
-    <div>
-      <div className="mb-1">
-        <h1 className='text-3xl font-medium text-black mb-12'>Personal Library</h1>
-      </div>
-      <div className="bg-white rounded-lg shadow-md p-4 items-center">
-        <div className="flex items-center">
+    <div className=" bg-gray-100 ">
+      <div className="rounded-lg shadow-md p-4 items-center ">
+      <h1 className='flex  flex-col   text-3xl font-semibold text-black mb-10'>
+        {username}'s Personal Library 📚
+      </h1>
+        <div className="flex justify-center">
           <input
-            className='text-black bg-gray-200 rounded-2xl mr-2 pl-2 py-1 w-1/3'
+            className='text-black bg-gray-200 rounded-xl mr-2 pl-2 py-1 w-1/3'
             placeholder='Enter your new shelf name'
             value={shelfName}
             onChange={(e) => setShelfName(e.target.value)}
           />
           <button
-            className='text-white bg-brown rounded w-45 ml-2 mr-2 px-2 py-1'
+            className='text-white bg-brown rounded-full w-45 ml-2 mr-2 px-2 py-1'
             onClick={handleAddShelf}
           > 
-            Add Shelf
+              <FaPlus className="text-lg" /> {/* Plus icon */}
           </button>
           <select
-            className='text-black bg-gray-200 rounded-2xl pl-2 pr-4 py-1 ml-2'
+            className='text-black bg-gray-200 rounded-xl pl-2 pr-4 py-1 ml-2'
             value={selectedFilter}
             onChange={handleFilterChange}
           >
@@ -147,42 +158,49 @@ function Personallib({ currentSession,username }) {
             <option value="Want to Read">Want to Read</option>
           </select>
         </div>
+        <div className='bg-'>
+        <div className="bg-brown h-1 w-full mb-4 mt-5"></div>
         <div className="mt-4 flex justify-center">
           {shelves.map((shelf, shelfIndex) => (
             <div
-              key={shelfIndex}
-              className={`cursor-pointer rounded-lg p-2 mx-2 ${
-                activeShelf === shelf ? 'bg-brown text-white' : 'bg-gray-200 text-black'
-              }`}
-              onClick={() => handleShelfClick(shelf)}
-            >
+            key={shelfIndex}
+            className={`cursor-pointer mx-2 ${activeShelf === shelf ? 'bg-light-brown text-white' : 'bg-gray-200 text-black'} 
+                        py-2 px-5 rounded-lg shadow-md hover:bg-light-brown`}
+            onClick={() => handleShelfClick(shelf)}
+          >
               {shelf.name}
             </div>
           ))}
         </div>
-        <div className="mt-4 pr-1">
+        <div className="bg-brown h-1 w-full mb-4 mt-5"></div>
+        </div>
+        <div className="mt-4 pr-1 ">
           {activeShelf && (
-            <div className="bg-white rounded-lg shadow-md p-4 mb-4">
-              <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-semibold mb-2">{activeShelf.name}</h2>
-                <button
-                  className="text-sm bg-red-500 text-white px-2 py-1 rounded-md mb-2"
-                  onClick={() => handleRemoveShelf(shelves.indexOf(activeShelf))}
-                >
-                 <FaTimes /> {/* Use the "X" icon */}
-                </button>
-              </div>
-              <div className="flex flex-wrap">
+           <div className="bg-nav-bg rounded-lg shadow-md p-4 mb-4">
+            <div className="flex justify-between items-center">
+            <h2 className="text-2xl mb-2 text-black mb-4 ml-4 font-semibold capitalize hover:text-brown transition duration-300">
+              {activeShelf.name}
+            </h2>
+              <button
+                className="text-sm bg-red-500 text-white px-2 py-1 rounded-md"
+                onClick={() => handleRemoveShelf(shelves.indexOf(activeShelf))}
+              >
+                <FaTimes /> {/* Use the "X" icon */}
+              </button>
+            </div>
+              <div className="flex flex-wrap  ">
                 {filterBooksByShelf(activeShelf.name).map((book, bookIndex) => (
-                  <div key={bookIndex} className="w-full md:w-1/2 lg:w-1/2 xl:w-1/2 p-">
-                    <BookInfo
-                      bookId={book}
-                      shelf={activeShelf}
-                      userId={userId}
-                      setShelves={setShelves}
-                      onUpdateState={(newState) => handleUpdateBookState(shelves.indexOf(activeShelf), book, newState)}
-                      username={username}
-                    />
+                  <div key={bookIndex} className="w-full md:w-1/2 lg:w-1/2 xl:w-1/2 p-2" >
+                    <div className="rounded-lg p-2 " >
+                      <BookInfo
+                        bookId={book}
+                        shelf={activeShelf}
+                        userId={userId}
+                        setShelves={setShelves}
+                        onUpdateState={(newState) => handleUpdateBookState(shelves.indexOf(activeShelf), book, newState)}
+                        username={username}
+                      />
+                    </div>
                   </div>
                 ))}
               </div>
@@ -192,6 +210,6 @@ function Personallib({ currentSession,username }) {
       </div>
     </div>
   );
-}
-
+  
+              }
 export default Personallib;

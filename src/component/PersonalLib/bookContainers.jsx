@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { FaTrash } from 'react-icons/fa'; 
-import { FaPencilAlt } from 'react-icons/fa'; // Import the pencil icon
+import { FaTrash, FaPencilAlt } from 'react-icons/fa'; 
 
-function BookInfo({ bookId, shelf, onUpdateState, userId, setShelves,username}) {
+function BookInfo({ bookId, shelf, onUpdateState, userId, setShelves, username }) {
   const [bookDetails, setBookDetails] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedState, setSelectedState] = useState('wantToRead');
@@ -16,14 +15,18 @@ function BookInfo({ bookId, shelf, onUpdateState, userId, setShelves,username}) 
       .catch(error => {
         console.error('Error fetching book details:', error);
       });
-  }, [bookId, bookDetails]);
+  }, [bookId]);
 
-  const handleChangeStateClick = () => {
-    setShowDropdown(true);
+  const handleRemoveBook = () => {
+    handleRemoveBookFromShelf(shelf, bookId);
   };
 
-  const handleRemoveBookFromShelf = (shelfIndex, bookToRemoveId, setShelves) => {
-    // Send request to backend to remove the book from the shelf
+  const handleEditBook = () => {
+    setShowDropdown(!showDropdown); // Toggle dropdown visibility
+  };
+
+
+  const handleRemoveBookFromShelf = (shelfIndex, bookToRemoveId) => {
     fetch(`http://localhost:3001/library/removeBookFromShelf`, {
       method: 'POST',
       headers: {
@@ -40,44 +43,47 @@ function BookInfo({ bookId, shelf, onUpdateState, userId, setShelves,username}) 
       .catch(error => console.error('Error removing book from shelf:', error));
   };
 
-
   const handleChangeState = (value) => {
     setShowDropdown(false);
-    onUpdateState(selectedState);
+    onUpdateState(value);
     fetch(`http://localhost:3001/library/changeStatus`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ bookId, newState:value , username })
+      body: JSON.stringify({ bookId, newState: value, username })
     })
       .then(response => response.json())
-      .then(response => {
-        console.log('Book status updated:', response.state);
-        setBookDetails(response);
+      .then(updatedDetails => {
+        setBookDetails(prevDetails => ({
+          ...prevDetails,
+          state: updatedDetails.state  // assuming the state is the key for status in the bookDetails object
+        }));
       })
       .catch(error => console.error('Error changing book status:', error));
   };
 
   return (
-    <div className=" ml-0 flex items-center justify-between p-2 rounded-lg shadow bg-white w-70">
-      <div className="flex-shrink-0 w-32 ">
-        <img src={bookDetails?.imageUrl} alt={bookDetails?.title} className="h-full w-full object-cover rounded-lg" />
+    <div className="relative ml-0 flex items-center justify-between p-3 rounded-lg shadow bg-white w-70">
+      <div className="flex-shrink-0 w-32 h-52 mr-4">
+        <img src={bookDetails?.imageUrl} alt={bookDetails?.title} className="h-full w-full object-cover " />
       </div>
-      <div>
-        <h3 className="text-lg font-semibold">{bookDetails?.title}</h3>
-        <p className="text-gray-600">by {bookDetails?.author && bookDetails?.author.join(', ')}</p>
-        <p className="text-gray-600">Genre: {bookDetails?.genre && bookDetails?.genre[0]}</p>
-        {bookDetails?.publishedDate && <p className="text-gray-600">Year: {new Date(bookDetails?.publishedDate).getFullYear()}</p>}
-        <button className="text-sm bg-red-500 text-white px-2 py-1 rounded-md mt-2" onClick={() => handleRemoveBookFromShelf(shelf, bookId, setShelves)}>
-        <FaTrash className="mr-1" />  {/* Using the Trash icon */}
+      <div className="flex-grow">
+        <h3 className="text-lg font-semibold mb-2">{bookDetails?.title}</h3>
+        <p className="text-gray-600 mb-2">by {bookDetails?.author && bookDetails?.author.join(', ')}</p>
+        <p className="text-gray-600 mb-2">Genre: {bookDetails?.genre && bookDetails?.genre[0]}</p>
+        {bookDetails?.publishedDate && <p className="text-gray-600 mb-2">Year: {new Date(bookDetails?.publishedDate).getFullYear()}</p>}
+      </div>
+      <div className="absolute bottom-2 right-2 flex space-x-2">
+        <button className="text-sm bg-red-500 text-white rounded-full p-1 sm:p-2 lg:p-3" onClick={handleRemoveBook}>
+          <FaTrash />
         </button>
-        <button className="text-sm bg-blue-500 text-white px-2 py-1 rounded-md ml-2" onClick={handleChangeStateClick}>
-        <FaPencilAlt className="mr-0" /> {/* Use the pencil icon */}
+        <button className="text-sm bg-blue-500 text-white rounded-full p-1 sm:p-2 lg:p-3" onClick={handleEditBook}>
+          <FaPencilAlt />
         </button>
         {showDropdown && (
-          <div className="mt-2">
-            <select value={selectedState} onChange={(e) => handleChangeState(e.target.value) }>
+          <div className="absolute left-0 mt-10">
+            <select value={selectedState} onChange={(e) => handleChangeState(e.target.value)}>
               <option value="read">Read</option>
               <option value="reading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
@@ -85,7 +91,6 @@ function BookInfo({ bookId, shelf, onUpdateState, userId, setShelves,username}) 
           </div>
         )}
       </div>
-      <br></br>
     </div>
   );
 }
