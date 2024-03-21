@@ -131,7 +131,7 @@ function Personallib({ currentSession, username }) {
   return (
     <div className=" bg-gray-100 ">
       <div className="rounded-lg shadow-md p-4 items-center ">
-      <h1 className='flex flex-col  text-3xl font-semibold text-black mb-10'>
+      <h1 className='flex  flex-col   text-3xl font-semibold text-black mb-10'>
         {username}'s Personal Library 📚
       </h1>
         <div className="flex justify-center">

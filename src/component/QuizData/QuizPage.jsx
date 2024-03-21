@@ -1,79 +1,99 @@
-import React, { useState } from 'react';
-import Questions from './QuestionsData'; // Assuming Questions.js contains your array of questions
+import React, { useState, useEffect } from 'react';
+import QuizHome from './QuizHome';
+import QuizResult from './QuizResult';
+import QuestionCard from './QuestionCard';
+import Questions from './QuestionsData';
 
-function Quiz() {
+const Quiz = () => {
+  const [quizStarted, setQuizStarted] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState('');
   const [score, setScore] = useState(0);
-  const [showScore, setShowScore] = useState(false);
+  const [showResult, setShowResult] = useState(false);
+  const [timer, setTimer] = useState(600);
+  const [formattedTime, setFormattedTime] = useState('10:00');
+  const [userAnswers, setUserAnswers] = useState(Array(Questions.length).fill(undefined));
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (timer > 0 && !showResult) {
+        setTimer(timer - 1);
+        const minutes = Math.floor((timer - 1) / 60);
+        const seconds = (timer - 1) % 60;
+        setFormattedTime(
+          `${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`
+        );
+      } else {
+        clearInterval(interval);
+        setShowResult(true);
+      }
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [timer, showResult]);
+
+  const startQuiz = () => {
+    setQuizStarted(true);
+  };
 
   const handleOptionChange = (option) => {
+    const updatedUserAnswers = [...userAnswers];
+    updatedUserAnswers[currentQuestion] = option;
+    setUserAnswers(updatedUserAnswers);
     setSelectedOption(option);
   };
 
   const handleNextQuestion = () => {
-    const correctAnswer = Questions[currentQuestion].answer;
+    const correctAnswerIndex = Questions[currentQuestion].answer;
+    const correctAnswer = Questions[currentQuestion].options[correctAnswerIndex];
+
     if (selectedOption === correctAnswer) {
       setScore(score + 1);
     }
-    setSelectedOption('');
-    if (currentQuestion < Questions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
+
+    if (currentQuestion === Questions.length - 1) {
+      setShowResult(true);
     } else {
-      setShowScore(true);
+      setCurrentQuestion(currentQuestion + 1);
+      setSelectedOption('');
     }
   };
 
-  const handleRestartQuiz = () => {
+  const resetQuiz = () => {
+    setQuizStarted(false);
     setCurrentQuestion(0);
     setSelectedOption('');
     setScore(0);
-    setShowScore(false);
+    setShowResult(false);
+    setTimer(600);
+    setFormattedTime('10:00');
+    setUserAnswers(Array(Questions.length).fill(undefined));
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
-
-        <div className="container mx-auto">
-          {showScore ? (
-            <div>
-              <h1 className="text-2xl font-bold mb-4">Quiz Completed!</h1>
-              <p className="mb-4">Your score: {score}/{Questions.length}</p>
-              <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                onClick={handleRestartQuiz}
-              >
-                Restart Quiz
-              </button>
-            </div>
-          ) : (
-            <div>
-              <h1 className="text-2xl font-bold mb-4">{Questions[currentQuestion].questions}</h1> {/* Corrected 'question' to 'questions' */}
-              <div className="mb-4">
-                {Questions[currentQuestion].options.map((option, index) => (
-                  <div key={index} className="mb-2">
-                    <input
-                      type="radio"
-                      id={option}
-                      name="option"
-                      value={option}
-                      checked={selectedOption === option}
-                      onChange={() => handleOptionChange(option)}
-                    />
-                    <label htmlFor={option} className="ml-2">{option}</label>
-                  </div>
-                ))}
-              </div>
-              <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                onClick={handleNextQuestion}
-              >
-                {currentQuestion < Questions.length - 1 ? 'Next' : 'Finish'}
-              </button>
-            </div>
-          )}
-        </div>
-      
+    <div className="min-h-screen bg-gray-100 flex justify-center items-center">
+      <div className="max-w-lg w-full">
+        {!quizStarted && <QuizHome startQuiz={startQuiz} />}
+        {quizStarted && !showResult && (
+          <QuestionCard
+            question={Questions[currentQuestion]}
+            selectedOption={selectedOption}
+            userAnswers={userAnswers}
+            handleOptionChange={handleOptionChange}
+            handleNextQuestion={handleNextQuestion}
+            currentQuestion={currentQuestion}
+            totalQuestions={Questions.length}
+            formattedTime={formattedTime}
+          />
+        )}
+        {showResult && (
+          <QuizResult
+            score={score}
+            totalQuestions={Questions.length}
+            resetQuiz={resetQuiz}
+            formattedTime={formattedTime}
+          />
+        )}
+      </div>
     </div>
   );
 };

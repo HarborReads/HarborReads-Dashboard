@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
+import Quiz from './QuizData/QuizPage';
 
 const CircularProgress = ({ percentage, color }) => {
   const strokeWidth = 15;
@@ -120,7 +121,7 @@ const ReadingInsights = ({ username }) => {
             <div> <img src="https://png.pngtree.com/png-vector/20220409/ourlarge/pngtree-concentration-and-focus-on-business-goal-or-target-business-goal-solution-png-image_4503525.png"/></div>
             <h3 className="font-semibold md:text-base lg:text-xl mt-2  mb-3">Challenge Your Knowledge!</h3>
             <p className="text-gray-600 text-sm md:text-base lg:text-lg mb-4">Dive into a world of literary exploration and challenge your literary prowess today!</p>
-            <Link to="/challenges" className="bg-brown text-white px-2 py-2 rounded-lg items-center mt-2 block">
+            <Link to="/Quiz" className="bg-brown text-white px-2 py-2 rounded-lg items-center mt-2 block">
               Explore Quizzes
               <span className="ml-2">&#10132;</span>
             </Link>
@@ -132,7 +133,7 @@ const ReadingInsights = ({ username }) => {
             <h3 className="font-semibold md:text-base lg:text-xl mt-2  mb-3">Set a Challenge</h3>
             <p className="text-gray-600 text-sm md:text-base lg:text-lg mb-4">Set a goal for the number of books you want to read and track your progress</p>
             <Link to="/challenges" className="bg-brown text-white px-2 py-2 rounded-lg items-center mt-2 block">
-              Set the challenge
+              Set a challenge
               <span className="ml-2">&#10132;</span>
             </Link>
           </div>
@@ -147,7 +148,7 @@ const ReadingInsights = ({ username }) => {
           <div> <img src="https://news.miami.edu/life/_assets/images/images-stories/2021/01/book-clubs-940x529.jpg"/></div>
           <h2 className="font-semibold md:text-base lg:text-xl mt-2  mb-3">Explore Reading Communities</h2>
           <p className="text-lg  text-gray mb-2">Connect with other book lovers and join discussions on Goodreads!</p>
-          <a href="https://www.goodreads.com/group" target="_blank" rel="noreferrer" className="bg-brown text-white px-6 py-3 rounded-lg inline-block">Explore Reading Communities</a>
+          <a href="https://www.goodreads.com/group" target="_blank" rel="noreferrer" className="bg-brown text-white px-2 py-2 rounded-lg items-center mt-2 block">Explore Reading Communities</a>
         </div>
       </div>
       <div className="bg-very-light-maroon rounded-lg shadow-md p-4 md:flex items-center mb-10 md:w-[48%] mt-5" >
@@ -155,7 +156,7 @@ const ReadingInsights = ({ username }) => {
           <div><img src= "https://www.elevate.so/content/images/2023/03/2201_w037_n003_114a_p1_114.jpg"/></div>
           <h2 className="font-semibold md:text-base lg:text-xl mt-2  mb-3">View Leaderboard</h2>
           <p className="text-lg  text-gray mb-2">Check out the top readers on HarborReads!</p>
-          <Link to="/leaderboard" className="bg-brown text-white px-6 py-3 rounded-lg inline-block">View Leaderboard</Link>
+          <Link to="/leaderboard" className="bg-brown text-white px-2 py-2 rounded-lg items-center mt-2 block">View Leaderboard</Link>
         </div>
       </div>
     </div>
