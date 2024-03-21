@@ -115,8 +115,8 @@ const ReadingInsights = ({ username }) => {
       <Link to="/">
         <button className="absolute left-3 top-3 bg-white text-black px-3 py-1 rounded-full">&lt;</button>
       </Link>
-      <div className="flex flex-wrap justify-between container mx-auto">
-        <div className="bg-very-light-maroon rounded-lg shadow-md p-4 md:flex items-center mb-6 md:w-[48%] md:mr-1 md:justify-start">
+      <div className="flex flex-wrap justify-between container mx-auto ">
+        <div className="bg-very-light-maroon rounded-lg mt-2  shadow-md p-4 md:flex items-center mb-6 md:w-[48%] md:mr-1 md:justify-start">
           <div className="md:mr-2">
             <div> <img src="https://png.pngtree.com/png-vector/20220409/ourlarge/pngtree-concentration-and-focus-on-business-goal-or-target-business-goal-solution-png-image_4503525.png"/></div>
             <h3 className="font-semibold md:text-base lg:text-xl mt-2  mb-3">Challenge Your Knowledge!</h3>
@@ -127,7 +127,7 @@ const ReadingInsights = ({ username }) => {
             </Link>
           </div>
         </div>  
-        <div className="bg-very-light-maroon rounded-lg shadow-md p-4 md:flex items-center mb-6 md:w-[48%] md:mr-1 md:justify-start">
+        <div className="bg-very-light-maroon rounded-lg shadow-md mt-2 p-4 md:flex items-center mb-6 md:w-[48%] md:mr-1 md:justify-start">
           <div className="md:mr-2">
             <div><img src="https://img.resized.co/siliconrepublic/eyJkYXRhIjoie1widXJsXCI6XCJodHRwczpcXFwvXFxcL3d3dy5zaWxpY29ucmVwdWJsaWMuY29tXFxcL3dwLWNvbnRlbnRcXFwvdXBsb2Fkc1xcXC8yMDIyXFxcLzA5XFxcL2dvYWwtc2V0dGluZy5qcGVnXCIsXCJ3aWR0aFwiOjExMDAsXCJoZWlnaHRcIjo2MDAsXCJkZWZhdWx0XCI6XCJodHRwczpcXFwvXFxcL3d3dy5zaWxpY29ucmVwdWJsaWMuY29tXFxcL3dwLWNvbnRlbnRcXFwvdXBsb2Fkc1xcXC8yMDE0XFxcLzEyXFxcLzIwMTMwMlxcXC9wdXp6bGUuanBnXCIsXCJvcHRpb25zXCI6W119IiwiaGFzaCI6ImZjZWJhMzU0MTUwNzQzNzRkNTBjMWUyYTM5MWY1MGU4Zjg5ZGFkNjYifQ==/goal-setting.jpeg" className="h-24 md:h-auto" /></div>
             <h3 className="font-semibold md:text-base lg:text-xl mt-2  mb-3">Set a Challenge</h3>
@@ -143,7 +143,7 @@ const ReadingInsights = ({ username }) => {
       <div className="flex flex-wrap justify-between">
       <div className="flex flex-wrap justify-between">
       <div className="flex flex-wrap justify-between">
-      <div className="bg-very-light-maroon rounded-lg shadow-md p-4 md:flex items-center mb-10 mt-5 md:w-[48%] md:mr-1">
+      <div className="bg-very-light-maroon rounded-lg shadow-md p-4 md:flex items-center mb-10 mt-2 md:w-[48%] md:mr-1">
         <div className="md:mr-2">
           <div> <img src="https://news.miami.edu/life/_assets/images/images-stories/2021/01/book-clubs-940x529.jpg"/></div>
           <h2 className="font-semibold md:text-base lg:text-xl mt-2  mb-3">Explore Reading Communities</h2>
@@ -151,12 +151,12 @@ const ReadingInsights = ({ username }) => {
           <a href="https://www.goodreads.com/group" target="_blank" rel="noreferrer" className="bg-brown text-white px-2 py-2 rounded-lg items-center mt-2 block">Explore Reading Communities</a>
         </div>
       </div>
-      <div className="bg-very-light-maroon rounded-lg shadow-md p-4 md:flex items-center mb-10 md:w-[48%] mt-5" >
+      <div className="bg-very-light-maroon rounded-lg shadow-md p-4 md:flex items-center mb-10 md:w-[48%] mt-2" >
         <div className="md:mr-4">
           <div><img src= "https://www.elevate.so/content/images/2023/03/2201_w037_n003_114a_p1_114.jpg"/></div>
           <h2 className="font-semibold md:text-base lg:text-xl mt-2  mb-3">View Leaderboard</h2>
           <p className="text-lg  text-gray mb-2">Check out the top readers on HarborReads!</p>
-          <Link to="/leaderboard" className="bg-brown text-white px-2 py-2 rounded-lg items-center mt-2 block">View Leaderboard</Link>
+          <Link to="/Leaderboard" className="bg-brown text-white px-2 py-2 rounded-lg items-center mt-2 block">View Leaderboard</Link>
         </div>
       </div>
     </div>
