@@ -87,7 +87,7 @@ const ReadingInsights = ({ username }) => {
     fetchWantToReadBooks();
   }, [username]);
 
-  const readBooksPercentage = ((numberOfReadBooks / wantToReadBooks) * 100).toFixed(2);
+  const readBooksPercentage = Math.round((numberOfReadBooks / wantToReadBooks) * 100);
 
   return (
     <div className="reading-insights-container justify-between rounded-[20px] mx-auto relative" style={{ marginBottom: "10px", textAlign: "center", overflow: "hidden", padding: "20px" }}>

@@ -1,6 +1,24 @@
 import React from 'react';
 
-const Leaderboard = ({ users }) => {
+const users = [
+  {
+    name: 'John Doe',
+    icon: 'https://example.com/john-doe-icon.jpg',
+    score: 1000,
+  },
+  {
+    name: 'Jane Smith',
+    icon: 'https://example.com/jane-smith-icon.jpg',
+    score: 950,
+  },
+  {
+    name: 'Alice Johnson',
+    icon: 'https://example.com/alice-johnson-icon.jpg',
+    score: 900,
+  },
+];
+
+const Leaderboard = () => {
   return (
     <div className="bg-gray-100 border border-gray-300 rounded-lg p-4 md:p-6 lg:p-8">
       <div className="text-center mb-4 md:mb-6 lg:mb-8">
