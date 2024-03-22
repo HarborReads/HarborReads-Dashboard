@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaTrash, FaPencilAlt } from 'react-icons/fa'; 
 
-function BookInfo({ bookId, shelf, onUpdateState, userId, setShelves, username }) {
+function BookInfo({ bookId, shelf, userId, setShelves, username }) {
   const [bookDetails, setBookDetails] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedState, setSelectedState] = useState('wantToRead');
@@ -45,7 +45,7 @@ function BookInfo({ bookId, shelf, onUpdateState, userId, setShelves, username }
 
   const handleChangeState = (value) => {
     setShowDropdown(false);
-    onUpdateState(value);
+    //onUpdateState(value);
     fetch(`http://localhost:3001/library/changeStatus`, {
       method: 'POST',
       headers: {

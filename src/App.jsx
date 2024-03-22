@@ -136,7 +136,7 @@ const AuthenticatedRoutes = ({userName,currentSession}) => {
           <Route path="/library" element={<Personallib currentSession={currentSession} username={userName} />} />
           <Route path="/insights" element={<ReadingInsights username={userName}/>}/>
           <Route path="/challenges" element={<Challenges username={userName}/>} />
-          <Route path="/quiz" element={<Quiz/>}/>
+          <Route path="/quiz" element={<Quiz username={userName}/>}/>
           <Route path= "/Leaderboard" element={<Leaderboard/>} />
           <Route path='/' element={<Dashboard userName={userName} setAuth={setAuth}/>} />
         </Routes>

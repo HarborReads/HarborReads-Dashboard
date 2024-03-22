@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import BookInfo from './bookContainers';
+import './personalLibrary.css'; 
 import { FaTimes } from 'react-icons/fa'; // Import the "X" icon
 import { FaPlus } from 'react-icons/fa'; // Import the plus icon
 
@@ -83,26 +84,26 @@ function Personallib({ currentSession, username }) {
     .catch(error => console.error('Error removing shelf:', error));
   };
 
-  const handleUpdateBookState = (shelfIndex, bookToUpdate, newState) => {
-    const updatedShelves = shelves.map((shelf, index) => {
-      if (index === shelfIndex) {
-        return {
-          ...shelf,
-          books: shelf.books.map(book => {
-            if (book === bookToUpdate) {
-              return {
-                ...book,
-                state: newState
-              };
-            }
-            return book;
-          })
-        };
-      }
-      return shelf;
-    });
-    setShelves(updatedShelves);
-  };
+  // const handleUpdateBookState = (shelfIndex, bookToUpdate, newState) => {
+  //   const updatedShelves = shelves.map((shelf, index) => {
+  //     if (index === shelfIndex) {
+  //       return {
+  //         ...shelf,
+  //         books: shelf.books.map(book => {
+  //           if (book === bookToUpdate) {
+  //             return {
+  //               ...book,
+  //               state: newState
+  //             };
+  //           }
+  //           return book;
+  //         })
+  //       };
+  //     }
+  //     return shelf;
+  //   });
+  //   setShelves(updatedShelves);
+  // };
 
   const handleFilterChange = (e) => {
     setSelectedFilter(e.target.value);
@@ -131,12 +132,15 @@ function Personallib({ currentSession, username }) {
   return (
     <div className=" bg-gray-100 ">
       <div className="rounded-lg shadow-md p-2 items-center ">
-      <h1 className='flex justify-center mt-1 items-center flex-col text-3xl font-semibold text-black mb-8'>
-        Hey {username}, Discover Your Personal Library ✨
+      <h1 className='flex justify-center mt-2 items-center flex-col text-4xl font-semibold text-black mb-8 typing-animation' style={{ lineHeight: '1.5', marginBottom: '1rem' }}>
+        <span className="text-center">
+        <span className="text-brown">{username}'s </span>
+        <span className="text-brown-300">reads</span> ✨
+        </span>
       </h1>
-        <div className="flex justify-center">
+        <div className="flex justify-center mt-5">
           <input
-            className='text-black bg-gray-200 rounded-xl mr-2 pl-2 py-1 w-1/3'
+            className='text-black bg-gray-200 rounded-xl mr-2 pl-2 py-1 w-1/4'
             placeholder='Enter your new shelf name'
             value={shelfName}
             onChange={(e) => setShelfName(e.target.value)}
@@ -159,7 +163,7 @@ function Personallib({ currentSession, username }) {
           </select>
         </div>
         <div className='bg-'>
-        <div className="bg-brown h-1 w-full mb-4 mt-5"></div>
+        <div className="bg-brown h-1 w-full mb-4 mt-3"></div>
         <div className="mt-4">
         <div className="flex justify-center flex-wrap">
           {shelves.map((shelf, shelfIndex) => (
@@ -199,7 +203,7 @@ function Personallib({ currentSession, username }) {
                         shelf={activeShelf}
                         userId={userId}
                         setShelves={setShelves}
-                        onUpdateState={(newState) => handleUpdateBookState(shelves.indexOf(activeShelf), book, newState)}
+                        //onUpdateState={(newState) => handleUpdateBookState(shelves.indexOf(activeShelf), book, newState)}
                         username={username}
                       />
                     </div>

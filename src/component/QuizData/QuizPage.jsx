@@ -3,8 +3,10 @@ import QuizHome from './QuizHome';
 import QuizResult from './QuizResult';
 import QuestionCard from './QuestionCard';
 import Questions from './QuestionsData';
+import axios from 'axios'; // Import axios
 
-const Quiz = () => {
+
+const Quiz = ({username}) => {
   const [quizStarted, setQuizStarted] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState('');
@@ -58,7 +60,7 @@ const Quiz = () => {
     }
   };
 
-  const resetQuiz = () => {
+  const resetQuiz = async () => {
     setQuizStarted(false);
     setCurrentQuestion(0);
     setSelectedOption('');
@@ -68,6 +70,19 @@ const Quiz = () => {
     setFormattedTime('10:00');
     setUserAnswers(Array(Questions.length).fill(undefined));
   };
+
+  const submitScore =  () => {
+    try {
+       axios.post('http://localhost:3001/leaderboard/setLeaderboardScore', {
+        username: username,
+        score: ((score / 10) * 100).toFixed(2)
+      });
+    } catch (error) {
+      console.error('Failed to set leaderboard score:', error);
+    }
+  };
+
+
 
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center items-center">
@@ -86,13 +101,16 @@ const Quiz = () => {
           />
         )}
         {showResult && (
-          <QuizResult
-            score={score}
-            totalQuestions={Questions.length}
-            resetQuiz={resetQuiz}
-            formattedTime={formattedTime}
-          />
-        )}
+      <>
+        <QuizResult
+          score={score}
+          totalQuestions={Questions.length}
+          resetQuiz={resetQuiz}
+          formattedTime={formattedTime}
+        />
+        {submitScore()} {/* Call setResultsShown function here */}
+      </>
+    )}
       </div>
     </div>
   );
