@@ -112,9 +112,6 @@ const ReadingInsights = ({ username }) => {
             </div>
            
       </div>
-      <Link to="/">
-        <button className="absolute left-3 top-3 bg-white text-black px-3 py-1 rounded-full">&lt;</button>
-      </Link>
       <div className="flex flex-wrap justify-between container mx-auto ">
         <div className="bg-very-light-maroon rounded-lg mt-2  shadow-md p-4 md:flex items-center mb-6 md:w-[48%] md:mr-1 md:justify-start">
           <div className="md:mr-2">

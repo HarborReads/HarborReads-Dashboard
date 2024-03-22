@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import logo from '../icons/newLogo.png';
+import logo from '../assets/newLogoo.png';
 import backgroundImage from '../assets/landingBg.png'; // Path to your background image
 
 const SignUp = ({ handleSignUp, signupMsg, setAuth }) => {
