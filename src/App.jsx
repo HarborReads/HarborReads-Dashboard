@@ -14,6 +14,7 @@ import  Quiz from './component/QuizData/QuizPage';
 import EditProfile from './component/EditProfile';
 import SignIn from './component/SignIn';
 import SignUp from './component/SignUp';
+import Leaderboard from './component/LeaderBoard';
 
 import './App.css';
 
@@ -136,6 +137,7 @@ const AuthenticatedRoutes = ({userName,currentSession}) => {
           <Route path="/insights" element={<ReadingInsights username={userName}/>}/>
           <Route path="/challenges" element={<Challenges username={userName}/>} />
           <Route path="/quiz" element={<Quiz/>}/>
+          <Route path= "/Leaderboard" element={<Leaderboard/>} />
           <Route path='/' element={<Dashboard userName={userName} setAuth={setAuth}/>} />
         </Routes>
       </div>
