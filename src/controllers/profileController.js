@@ -47,10 +47,12 @@ exports.updateProfile = async (req, res) => {
     const {email,gender, dob } = req.body;
     const {userSession}= req.body;
     const userId = userSession.user.id;
+    const username = userSession.user.username;
+    console.log(email,gender, dob);
 
     try {
         let userProfile = await UserProfile.findOne({ user: userId });
-        let user = await User.findById(userId);
+        let user = await User.findOne({ username: username });
 
         if (!userProfile) {
             userProfile = new UserProfile({
@@ -61,7 +63,7 @@ exports.updateProfile = async (req, res) => {
         } else {
             userProfile.gender = gender;
             userProfile.dob = dob;
-            User.email=email;
+            user.email=email;
         }
 
         await userProfile.save();

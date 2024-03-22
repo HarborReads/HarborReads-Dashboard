@@ -13,6 +13,7 @@ const userNameRouter=require('./src/routes/userRoutes');
 const recRouter=require('./src/routes/recRoutes');
 const libraryRouter=require( './src/routes/libraryRoutes');
 const insightRouter=require('./src/routes/readingInsightRoutes');
+const leaderboardRouter=require('./src/routes/leaderboardRoutes');
 
 require('./db');
 
@@ -81,6 +82,9 @@ app.use('/library' ,libraryRouter);
 
 // Mounting insightRouter at /insight
 app.use('/insight' ,insightRouter);
+
+// Mounting leaderboardRouter at /leaderboard
+app.use('/leaderboard' ,leaderboardRouter);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
