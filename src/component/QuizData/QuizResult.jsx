@@ -4,9 +4,9 @@ const QuizResult = ({ score, totalQuestions, resetQuiz, formattedTime }) => {
   const percentage = ((score / totalQuestions) * 100).toFixed(2);
 
   return (
-    <div className="results custom-box mx-auto max-w-md p-4 border border-black bg-brown rounded-lg">
-      <h2 className="text-center text-3xl mb-4 text-white">Quiz Result</h2>
-      <table className="w-full  mb-4 border-collapse border border-gray-400 text-white  ">
+    <div className="results custom-box mx-auto max-w-md p-4 border border-black rounded-lg" style={{ backgroundImage: 'linear-gradient(to top, #c71d6f 0%, #d09693 100%)' }}>
+      <h2 className="text-center text-3xl mb-4 text-brown">Quiz Result</h2>
+      <table className="w-full  bg-brown  mb-4 border-collapse border border-gray-400 text-white  ">
         <tbody>
           <tr>
             <td className="py-2 px-2  border border-gray-400 ">Total Questions</td>
@@ -38,7 +38,7 @@ const QuizResult = ({ score, totalQuestions, resetQuiz, formattedTime }) => {
           </tr>
         </tbody>
       </table>
-      <p className={`text-xl mb-4 ${percentage >= 75 ? 'text-green-500' : 'text-red-500'}`}>
+      <p className={`text-xl mb-4 ${percentage >= 75 ? 'text-green-700' : 'text-red-800'} font-bold`}>
         {percentage >= 75 ? 'Congratulations! You did a great job on this quiz!' : 'Better luck next time!'}
       </p>
       <div className="results custom-box mx-auto max-w-md p-4  flex justify-center items-center">

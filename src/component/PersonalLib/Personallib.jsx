@@ -130,9 +130,9 @@ function Personallib({ currentSession, username }) {
 
   return (
     <div className=" bg-gray-100 ">
-      <div className="rounded-lg shadow-md p-4 items-center ">
-      <h1 className='flex  flex-col   text-3xl font-semibold text-black mb-10'>
-        {username}'s Personal Library 📚
+      <div className="rounded-lg shadow-md p-2 items-center ">
+      <h1 className='flex justify-center mt-1 items-center flex-col text-3xl font-semibold text-black mb-8'>
+        Hey {username}, Discover Your Personal Library ✨
       </h1>
         <div className="flex justify-center">
           <input
@@ -160,19 +160,21 @@ function Personallib({ currentSession, username }) {
         </div>
         <div className='bg-'>
         <div className="bg-brown h-1 w-full mb-4 mt-5"></div>
-        <div className="mt-4 flex justify-center">
+        <div className="mt-4">
+        <div className="flex justify-center flex-wrap">
           {shelves.map((shelf, shelfIndex) => (
             <div
-            key={shelfIndex}
-            className={`cursor-pointer mx-2 ${activeShelf === shelf ? 'bg-light-brown text-white' : 'bg-gray-200 text-black'} 
-                        py-2 px-5 rounded-lg shadow-md hover:bg-light-brown`}
-            onClick={() => handleShelfClick(shelf)}
-          >
+              key={shelfIndex}
+              className={`cursor-pointer mx-2 mb-2 ${activeShelf === shelf ? 'bg-light-brown text-white' : 'bg-gray-200 text-black'} 
+                          py-2 px-5 rounded-lg shadow-md hover:bg-light-brown`}
+              onClick={() => handleShelfClick(shelf)}
+            >
               {shelf.name}
             </div>
           ))}
         </div>
-        <div className="bg-brown h-1 w-full mb-4 mt-5"></div>
+      </div>
+        <div className="bg-brown h-1 w-full mb-4 mt-4"></div>
         </div>
         <div className="mt-4 pr-1 ">
           {activeShelf && (

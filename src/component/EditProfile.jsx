@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Dashboard from './DashBoard/DashBoard';
 
 function EditProfile({ currentSession }) {
   const [username, setUsername] = useState("");
@@ -61,6 +62,7 @@ function EditProfile({ currentSession }) {
       if (response.ok) {
         setUpdateStatus("Profile details updated");
         console.log("profile updated");
+        
       } else {
         setUpdateStatus("Failed to update profile details");
       }
@@ -82,8 +84,14 @@ function EditProfile({ currentSession }) {
   };
 
   const handleBackButtonClick = () => {
-    navigate("/");
+    navigate('/');
   };
+  function handleSave() {
+    // Your logic for saving data goes here...
+  
+    // Navigate to the dashboard route
+    navigate('/');
+  }
 
   return (
     <div className="w-[800px] h-[630px] rounded-[20px] mx-auto relative" style={{ background: "linear-gradient(to bottom, #FFFFFF 0%, #A24857 250%)", overflow: "hidden" }}>
@@ -193,12 +201,13 @@ function EditProfile({ currentSession }) {
           />
         </div>
         <div className="text-center">
-          <button
-            type="submit"
-            className="w-36 bg-red-400 text-white font-semibold py-2 px-4 rounded-md hover:bg-red-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-          >
-            Save
-          </button>
+        <button
+          type="submit"
+          className="w-36 bg-brown text-white font-bold py-2 px-4 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          onClick={handleSave}
+        >
+          Save
+        </button>
         </div>
       </form>
       <div className="text-center mt-4">
