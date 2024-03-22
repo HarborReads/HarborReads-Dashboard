@@ -12,6 +12,7 @@ function ChatBot({ userName }) {
   const [userResponse, setUserResponse] = useState('');
   const [botResponse, setBotResponse] = useState('');
   const [questionIndex, setQuestionIndex] = useState(0);
+  const [chatBarActivate,setChatBarActivate]=useState(true);
   const chatRef = useRef(null);
 
 
@@ -97,21 +98,27 @@ function ChatBot({ userName }) {
         setBotResponseAndUpdateMessages(demoResponse);
 
         if(chatType==="avidReadersChat"){
-          if (queIndex === 9) {
+          if (queIndex === 8) {
             console.log("rec reached");
             // Fetch recommendation if all questions have been answered
             fetchRecommendation();
+            setChatBarActivate(false);
           }
         }
 
         if(chatType==="newReadersChat"){
-          if (queIndex===7){
+          if (queIndex===6){
             fetchNewReaderRecommendation();
+            setChatBarActivate(false);
+
           }
         }
 
         if (chatType==="bookChat"){
-          
+          if (queIndex===6){
+            setChatBarActivate(false);
+
+          }
         }
         
       } catch (error) {
@@ -214,7 +221,9 @@ function ChatBot({ userName }) {
       {showInitialContent && <InitialContent userName={userName} updateChatType={updateChatType} updateChat={updateChat} />}
 
       <ChatMessages messages={messages} botTyping={botTyping} />
-      <ChatBar updateChat={updateChat} />
+
+      {chatBarActivate && <ChatBar updateChat={updateChat} /> }
+      
     </div>
   );
 }
