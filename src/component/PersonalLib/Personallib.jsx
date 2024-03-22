@@ -83,26 +83,26 @@ function Personallib({ currentSession, username }) {
     .catch(error => console.error('Error removing shelf:', error));
   };
 
-  const handleUpdateBookState = (shelfIndex, bookToUpdate, newState) => {
-    const updatedShelves = shelves.map((shelf, index) => {
-      if (index === shelfIndex) {
-        return {
-          ...shelf,
-          books: shelf.books.map(book => {
-            if (book === bookToUpdate) {
-              return {
-                ...book,
-                state: newState
-              };
-            }
-            return book;
-          })
-        };
-      }
-      return shelf;
-    });
-    setShelves(updatedShelves);
-  };
+  // const handleUpdateBookState = (shelfIndex, bookToUpdate, newState) => {
+  //   const updatedShelves = shelves.map((shelf, index) => {
+  //     if (index === shelfIndex) {
+  //       return {
+  //         ...shelf,
+  //         books: shelf.books.map(book => {
+  //           if (book === bookToUpdate) {
+  //             return {
+  //               ...book,
+  //               state: newState
+  //             };
+  //           }
+  //           return book;
+  //         })
+  //       };
+  //     }
+  //     return shelf;
+  //   });
+  //   setShelves(updatedShelves);
+  // };
 
   const handleFilterChange = (e) => {
     setSelectedFilter(e.target.value);
@@ -199,7 +199,7 @@ function Personallib({ currentSession, username }) {
                         shelf={activeShelf}
                         userId={userId}
                         setShelves={setShelves}
-                        onUpdateState={(newState) => handleUpdateBookState(shelves.indexOf(activeShelf), book, newState)}
+                        //onUpdateState={(newState) => handleUpdateBookState(shelves.indexOf(activeShelf), book, newState)}
                         username={username}
                       />
                     </div>
