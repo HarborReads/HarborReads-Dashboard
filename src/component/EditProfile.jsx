@@ -70,6 +70,7 @@ function EditProfile({ currentSession }) {
       console.error(error);
       setUpdateStatus("Failed to update profile details");
     }
+    navigate('/');
   };
 
   const handleProfilePictureChange = (e) => {
@@ -86,15 +87,11 @@ function EditProfile({ currentSession }) {
   const handleBackButtonClick = () => {
     navigate('/');
   };
-  function handleSave() {
-    // Your logic for saving data goes here...
   
-    // Navigate to the dashboard route
-    navigate('/');
-  }
+  
 
   return (
-    <div className="w-[800px] h-[630px] rounded-[20px] mx-auto relative" style={{ background: "linear-gradient(to bottom, #FFFFFF 0%, #A24857 250%)", overflow: "hidden" }}>
+    <div className="w-[800px] h-[690px] rounded-[20px] mx-auto relative" style={{ background: "linear-gradient(to bottom, #FFFFFF 0%, #A24857 250%)", overflow: "hidden" }}>
       <div className="absolute top-4 left-4">
         <button
           className="text-gray-700 hover:text-gray-900"
@@ -204,7 +201,7 @@ function EditProfile({ currentSession }) {
         <button
           type="submit"
           className="w-36 bg-brown text-white font-bold py-2 px-4 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-          onClick={handleSave}
+          onClick={handleSubmit}
         >
           Save
         </button>
