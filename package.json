@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -30,7 +28,7 @@
     "passport": "^0.7.0",
     "passport-local": "^1.0.0"
   },
-    "scripts": {
-      "test": "jest"
-    }
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
 }
