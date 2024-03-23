@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
@@ -11,10 +12,16 @@ function BookPreview({ goBack, currentSession }) {
   const { bookId } = useParams();
   const userId = currentSession.user.id;
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     fetchBookDetails();
     fetchUserShelves();
   }, [bookId]); // Fetch data whenever the bookId changes
+
+  const handlegoback=()=>{
+    navigate('/');
+  };
 
   const fetchUserShelves = () => {
     fetch(`http://localhost:3001/library/shelves`, {
@@ -126,7 +133,7 @@ function BookPreview({ goBack, currentSession }) {
   return (
     <div className="h-screen flex flex-col bg-brown-600">
       <div className="p-4">
-        <button onClick={goBack} className="hover:text-gray text-black">
+        <button onClick={handlegoback} className="hover:text-gray text-black">
           <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
         </button>
       </div>
