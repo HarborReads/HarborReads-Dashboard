@@ -1,20 +1,22 @@
+
+jest.mock('../../src/component/ChatBot/ChatBot.css', () => ({}));
+jest.mock('../../src/component/ChatBot/initialContent.css', () => ({}));
+jest.mock('../../src/component/ProgressBar/Loadinglights.css', () => ({}));
+jest.mock('../../src/assets/chatbotImg.png', () => ({
+    default: '../../src/assets/chatbotImg.png', // Replace 'mocked-chatbot-image-path.png' with the desired mock image path
+  }));
+
 import React from 'react';
 import { render, screen, waitFor, debug } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { BrowserRouter } from 'react-router-dom'; // Import BrowserRouter
-import Chatbot from '../../src/component/ChatBot/ChatBot';
+import Chatbot from '../../src/component/DashBoard/ChatbotDirect';
+import { describe, test, expect } from '@jest/globals';
 
-jest.mock('../../../src/component/ChatBot/ChatBot.css', () => ({}));
-jest.mock('../../../src/component/ChatBot/initialContent.css', () => ({}));
-jest.mock('../../../src/component/ProgressBar/Loadinglights.css', () => ({}));
+
 
 describe('Chatbot Component', () => {
     test('clicking on the chatbot link navigates to the chatbot page', async () => {
-      render(
-        <BrowserRouter> {/* Wrap Chatbot component with BrowserRouter */}
-          <Chatbot />
-        </BrowserRouter>
-      );
+      render(<Chatbot />);
   
       // Wait for the chatbot link to become visible
       await waitFor(() => {
