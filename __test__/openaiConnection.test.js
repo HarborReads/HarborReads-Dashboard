@@ -1,3 +1,4 @@
+//this test files does unit testing for the open ai connection
 const axios = require('axios');
 const OpenAIConnection = require('../src/controllers/chatController/openAI');
 
@@ -15,6 +16,7 @@ describe('OpenAIConnection', () => {
     });
 
     describe('ask method', () => {
+        //test case 1
         it('should return a response from the OpenAI API', async () => {
             const prompt = 'Hello, world!';
             const responseMock = {
@@ -46,6 +48,7 @@ describe('OpenAIConnection', () => {
             expect(response).toBe('Hello back!');
         });
 
+        //test case 2
         it('should throw an error if the API call fails', async () => {
             const prompt = 'Hello, world!';
             const errorMessage = 'Error communicating with OpenAI API';
@@ -61,6 +64,7 @@ describe('OpenAIConnection', () => {
             await expect(openaiConnection.ask(prompt)).rejects.toThrowError(errorMessage);
         });
 
+        //test case 3
         it('should handle 401 Unauthorized errors', async () => {
             const prompt = 'Hello, world!';
             const errorMessage = 'Error communicating with OpenAI API: Unauthorized. Check your API key.';
@@ -75,6 +79,7 @@ describe('OpenAIConnection', () => {
             await expect(openaiConnection.ask(prompt)).rejects.toThrowError(errorMessage);
         });
 
+        //test case 4
         it('should handle 429 Rate Limit Exceeded errors', async () => {
             const prompt = 'Hello, world!';
             const errorMessage = 'Error communicating with OpenAI API: Rate Limit Exceeded. Reduce the rate of requests.';
@@ -89,6 +94,4 @@ describe('OpenAIConnection', () => {
             await expect(openaiConnection.ask(prompt)).rejects.toThrowError(errorMessage);
         });
     });
-
-    // Add more test cases for other methods as needed
 });

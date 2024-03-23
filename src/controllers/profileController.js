@@ -1,6 +1,6 @@
 // profileController.js
 const UserProfile = require('../models/userProfile');
-const User = require('..//models/User'); // Assuming your user model file is in the models directory
+const User = require('..//models/User'); 
 
 getUserDetails = async (username) => {
     try {

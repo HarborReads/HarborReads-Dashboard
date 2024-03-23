@@ -1,5 +1,9 @@
+//Test case file for chat controllers
+
 const {nRstartConversation, nRgenerateResponse, nRgenerateRecommendation } = require('../src/controllers/chatController/newReadersChatController');
 const OpenAIConnection = require('../src/controllers/chatController/openAI');
+
+//static questions
 const staticQuestions = [
     "Hi there, Let's find a book that matches your interests! Which genre are you interested in? (e.g., mystery, fantasy) mystery, fantasy, romance, or science fiction?",
     "let's add a personal touch to your reading experience. Is there a particular hobby, interest, or life experience you'd love to see reflected in the books you read?",
@@ -10,6 +14,7 @@ const staticQuestions = [
     "Hang on while I find some suggestions for your next read!"
 ];
 
+//openai connection
 const chatGPT = new OpenAIConnection('open-ai-key');
 
 async function analyzeResponseWithGPT(userResponse, questionAsked) {
@@ -51,6 +56,7 @@ describe('Chat Controller', () => {
         jest.clearAllMocks();
     });
 
+    //test case 1 - checks if it ruturns the first static question
     describe('nRstartConversation', () => {
         it('should return the first static question', () => {
             nRstartConversation(req, res);
@@ -58,7 +64,9 @@ describe('Chat Controller', () => {
         });
     });
 
+    
     describe('nRgenerateResponse', () => {
+        //test case 2 - checks if it generated a response based on user imput
         it('should generate a response based on user input', async () => {
             req.body = {
                 userResponse: 'User response',
@@ -72,6 +80,7 @@ describe('Chat Controller', () => {
             expect(res.json.mock.calls[0][0].response).toEqual('Mocked response from GPT');
         });
 
+        //test case 2 - checks if it ghandle user response not acknowledging the question
         it('should handle user response not acknowledging the question', async () => {
             // Arrange
         const userResponse = 'I like fantasy books';
@@ -86,6 +95,7 @@ describe('Chat Controller', () => {
     });
 
     describe('nRgenerateRecommendation', () => {
+        //test case 3 - checks if it generates recs based on user messages
         it('should generate book recommendations based on user messages', async () => {
             req.body = {
                 messages: [
@@ -101,6 +111,7 @@ describe('Chat Controller', () => {
             expect(res.json.mock.calls[0][0].recommendation).toEqual('Mocked response from GPT');
         });
 
+        //test case 4- checks if it handles errors when generating recs
         it('should handle errors when generating recommendations', async () => {
             req.body = {
                 messages: [

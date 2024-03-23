@@ -1,3 +1,4 @@
+//this test files does jest unit tesing for the rec algorithm
 const { MongoClient } = require('mongodb');
 const natural = require('natural');
 const { TfIdf } = natural;
@@ -27,6 +28,7 @@ jest.mock('mongodb', () => ({
 }));
 
 describe('connectToMongoDB', () => {
+  //test case 1 - checks the mongodb connection 
   it('should connect to MongoDB and return book descriptions', async () => {
     const bookDescriptions = await connectToMongoDB();
     expect(bookDescriptions).toHaveLength(2);
@@ -42,6 +44,7 @@ describe('connectToMongoDB', () => {
 });
 
 describe('getBestMatch', () => {
+  //test case 22 - finding the best match
   it('should find the best match book for a given conversation', async () => {
     const req = {
       body: {

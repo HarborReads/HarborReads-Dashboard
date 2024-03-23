@@ -1,3 +1,5 @@
+//this is the test file for unit testing for profile controller
+
 const UserProfile = require('../src/models/userProfile');
 const User = require('../src/models/User');
 const profileController = require('../src/controllers/profileController');
@@ -7,6 +9,7 @@ jest.mock('../models/User');
 
 describe('profileController', () => {
   describe('getUserDetails', () => {
+    //test case 1
     it('should return user details', async () => {
       const mockUser = {
         _id: 'user123',
@@ -26,6 +29,7 @@ describe('profileController', () => {
       });
     });
 
+    //test case 2
     it('should throw an error if user is not found', async () => {
       User.findById.mockResolvedValue(null);
 
@@ -36,6 +40,7 @@ describe('profileController', () => {
   });
 
   describe('getEditProfileForm', () => {
+    //test case 3
     it('should return userProfile and userDetails', async () => {
       const mockUserProfile = {
         _id: 'profile123',
@@ -79,6 +84,7 @@ describe('profileController', () => {
       });
     });
 
+    //test case 4
     it('should create a new userProfile if it does not exist', async () => {
       const mockUser = {
         _id: 'user123',

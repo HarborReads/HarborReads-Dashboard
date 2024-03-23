@@ -1,3 +1,4 @@
+//This is the test file done using jest unit testing for sign in and sign up
 const bcrypt = require('bcrypt');
 const authController = require('../src/controllers/authController');
 const User = require('../src/models/User');
@@ -13,6 +14,7 @@ describe('Auth Controller', () => {
   });
 
   describe('signup', () => {
+    //test case 1 if user already exits
     it('should return 400 if username already exists', async () => {
       const req = { body: { username: 'existingUser', email: 'test@example.com', password: 'password' } };
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
@@ -24,6 +26,7 @@ describe('Auth Controller', () => {
       expect(res.json).toHaveBeenCalledWith({ error: 'Username already exists' });
     });
 
+    //test case 2 if email already exits
     it('should return 400 if email already exists', async () => {
       const req = { body: { username: 'newUser', email: 'existing@example.com', password: 'password' } };
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
@@ -35,6 +38,7 @@ describe('Auth Controller', () => {
       expect(res.json).toHaveBeenCalledWith({ error: 'Email already exists' });
     });
 
+    //test case 3 - default shelf creation
     it('should create a new user and default shelf', async () => {
       const req = { body: { username: 'newUser', email: 'new@example.com', password: 'password' }, session: {} };
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
@@ -58,6 +62,7 @@ describe('Auth Controller', () => {
   });
 
   describe('signin', () => {
+    //test case 4 - user not found
     it('should return 401 if user not found', async () => {
       const req = { body: { username: 'nonExistingUser', password: 'password' } };
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
@@ -69,6 +74,7 @@ describe('Auth Controller', () => {
       expect(res.json).toHaveBeenCalledWith({ message: 'Invalid username or password', path: '/signin' });
     });
 
+    //test case 5 - password incorrect
     it('should return 401 if password is incorrect', async () => {
       const req = { body: { username: 'existingUser', password: 'wrongPassword' } };
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
@@ -82,6 +88,7 @@ describe('Auth Controller', () => {
       expect(res.json).toHaveBeenCalledWith({ message: 'Invalid username or password', path: '/signin' });
     });
 
+    //test case 6 - session creation
     it('should create a session and return success message', async () => {
       const req = { body: { username: 'existingUser', password: 'validPassword' }, session: {} };
       const res = { json: jest.fn() };

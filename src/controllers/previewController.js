@@ -22,7 +22,6 @@ async function previewBooks(req, res) {
         pageCount: response.data.volumeInfo.pageCount,
         year: response.data.volumeInfo.publishedDate,
         description: response.data.volumeInfo.description,
-        // Add other relevant book information here
       };
 
     res.json(book);

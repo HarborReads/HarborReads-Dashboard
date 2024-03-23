@@ -5,6 +5,7 @@ const { previewBooks } = require('../src/controllers/previewController');
 
 jest.mock('axios');
 
+//test case 1 - checks if book preview is given for a given bookId
 describe('Preview Controller', () => {
   test('should return book details when bookId is provided', async () => {
     const bookId = 'bookId';
@@ -19,7 +20,7 @@ describe('Preview Controller', () => {
           categories: ['Fiction'],
           pageCount: 300,
           publishedDate: '2022-01-01',
-          description: 'Book description', // Add description here
+          description: 'Book description', 
         },
       },
     };
@@ -44,6 +45,7 @@ describe('Preview Controller', () => {
     });
   });
 
+  //test case 2 - checks if it properly handles if bookid is missing
   test('should return 400 if bookId is missing', async () => {
     const req = { body: {} };
     const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
@@ -53,8 +55,5 @@ describe('Preview Controller', () => {
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({ error: 'Missing required fields: userId, title' });
   });
-
-  test('should return 500 if an error occurs', async () => {
-    // Test implementation...
-  });
+  
 });

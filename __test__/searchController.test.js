@@ -1,3 +1,4 @@
+//jest unit testing file for search controller
 const axios = require('axios');
 const { searchBooks, getSearchHistoryByUserId } = require('./searchController.test.js');
 const SearchHistory = require('src/models/SearchHistory.js');

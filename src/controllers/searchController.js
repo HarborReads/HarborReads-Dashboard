@@ -23,7 +23,6 @@ async function searchBooks(req, res) {
       rating:item.volumeInfo.averageRating,
       genre:item.volumeInfo.categories,
       year:item.volumeInfo.publishedDate,
-      // Add other relevant book information here
     }));
 
     // Store search history in the database
@@ -60,7 +59,7 @@ async function getSearchHistoryByUserId(req, res) {
         rating: bookData.averageRating,
         genre: bookData.categories,
         year: bookData.publishedDate,
-        // Add other relevant book information here
+        
       };
       historyBooks.push(book);
     }
